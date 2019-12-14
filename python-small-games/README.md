@@ -34,8 +34,3 @@ This repository is created just for learning python(Commercial prohibition).
 
 # Record
 see RECORD dir please → [click](./RECORD)
-
-# More
-#### WeChat Official Accounts
-*Charles_pikachu*  
-![img](pikachu.jpg)
