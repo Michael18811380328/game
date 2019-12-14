@@ -1,0 +1,737 @@
+/* Panels */
+
+.ui .panel {
+	position: fixed;
+	top: 30%;
+	left: 30%;
+	z-index: 99997;
+	background-color: #fff;
+	min-width: 220px;
+	max-width: 360px;
+	min-height: 100px;
+	max-height: 460px;
+	color: #444;
+	padding: 10px;
+	box-shadow: 0 0 10px #000;
+}
+
+.ui .panel header {
+	text-transform: uppercase;
+	font-size: 18px;
+	margin-bottom: 10px;
+	cursor: move;
+}
+
+.ui .panel section,
+.ui .panel .toolbar {
+	font-size: 12px;
+}
+
+.ui .panel footer {
+	border-top: 1px solid #ccc;
+	padding-top: 10px;
+	margin-top: 10px;
+	clear: both;
+}
+
+.ui .panel .toolbar {
+	margin-top: 10px;
+}
+
+.ui .panel a {
+	color: #444;
+}
+
+.ui .panel .toolbar .btn {
+	border-radius: 3px;
+	padding: 10px;
+	text-transform: uppercase;
+	text-align: center;
+	display: block;
+	cursor: pointer;
+}
+
+.ui .panel .toolbar .btn.iblock {
+	display: inline-block;
+	width: auto;
+	margin-right: 4px;
+}
+
+.ui .panel section .buildings.left {
+	width: 510px;
+	float: left;
+	position: relative;
+}
+
+.ui .panel section .buildings-info.right {
+	display: none;
+	float: left;
+	width: 310px;
+	margin-left: 10px;
+}
+
+.ui .panel fieldset {
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+}
+
+.ui .panel fieldset legend {
+	padding: 0 10px;
+}
+
+.ui .panel .b-name {
+	font-size: 26px;
+	margin: 0 0 10px 0;
+}
+
+.ui .panel header a {
+	width: 24px;
+	height: 24px;
+	display: block;
+	float: right;
+	cursor: pointer;
+	margin-left: 8px;
+}
+
+.ui .panel footer a {
+	width: 46px;
+	height: 46px;
+	display: block;
+	float: left;
+	cursor: pointer;
+	margin-right: 8px;
+}
+
+.ui .panel table {
+	width: 100%;
+	padding: 0;
+	border-spacing: 1px;
+	border-collapse: separate;
+}
+
+.ui .panel section dl,
+.window dl {
+	margin: 10px auto;
+}
+
+.ui .panel section dt,
+.window dt {
+	float: left;
+	text-align: right;
+	width: 45%;
+	line-height: 20px;
+	margin-bottom: 5px;
+}
+
+#panel-council section dd,
+#panel-camp section dd,
+#panel-shipyard section dd {
+	width: auto;
+}
+
+.ui .panel section dd,
+.window dd {
+	margin-left: 50%;
+	line-height: 20px;
+	margin-bottom: 5px;
+	width: 140px;
+}
+
+/* Debug panel */
+
+#panel-debug {
+	max-width: 600px;
+	width: 600px;
+	height: auto;
+	max-height: 400px;
+}
+
+#panel-debug .console {
+	overflow: auto;
+	max-height: 300px;
+}
+
+#panel-debug .console p {
+	padding: 2px 5px;
+	margin: 2px 0 0 0;
+	line-height: 26px;
+}
+
+#panel-debug .console span {
+	padding: 2px 6px;
+	margin-right: 6px;
+	border-radius: 6px;
+}
+
+#panel-debug .console span.error {
+	background-color: #FF0000;
+	color: #fff;
+}
+
+#panel-debug .console span.error-message {
+	background-color: #aa4600;
+	color: #fff;
+}
+
+#panel-debug .console span.log-message {
+	color: #444;
+	background-color: #efefef;
+}
+
+#panel-debug .console span.date {
+	background-color: #54DBC5;
+}
+
+#panel-debug .console span.namespace {
+	background-color: #D25C70;
+	color: #fff;
+}
+
+#panel-debug .console span.namespace.game-ui {
+	background-color: #BB86FC;
+	color: #000;
+}
+
+#panel-debug .console span.namespace.game-world {
+	background-color: #6638F0;
+}
+
+#panel-debug .console span.namespace.game-achievement {
+	background-color: #7C7951;
+}
+
+#panel-debug .console span.namespace.game-event {
+	background-color: #B0F566;
+	color: #000;
+}
+
+#panel-debug textarea {
+	width: 590px;
+	height: 200px;
+	padding: 5px;
+	border: 0;
+	box-shadow: inset 0 0 10px 0 rgba(20, 20, 20, 0.75);
+	font-size: 10px;
+	resize: none !important;
+}
+
+/* Help panel */
+
+#panel-help {
+	max-width: 800px;
+	width: 800px;
+	height: auto;
+	max-height: 620px;
+}
+
+#panel-help fieldset {
+	float: right;
+	width: 200px;
+	margin: 20px;
+}
+
+#panel-help fieldset li {
+	font-size: 14px;
+	line-height: 24px;
+}
+
+#panel-help .ui-tabs-panel {
+	max-height: 550px;
+	overflow: auto;
+}
+
+#panel-help .ui-tabs-panel p,
+#panel-help .ui-tabs-panel li {
+	font-size: 13px;
+	line-height: 20px;
+}
+
+/* Worldmap panel */
+
+#panel-world {
+	max-width: 1100px;
+	max-height: 660px;
+}
+
+#panel-world .worldmap {
+	width: 1024px;
+	height: 600px;
+	background-size: auto 100%;
+	position: relative;
+}
+
+#panel-world .worldmap .settlement,
+#panel-world .worldmap .army,
+#panel-world .worldmap .caravan,
+#panel-world .worldmap .army-return,
+#panel-world .worldmap .spy,
+#panel-world .worldmap .messenger {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
+}
+
+/* World Trades panel */
+
+#panel-trades {
+	width: 700px;
+	max-width: 700px;
+	max-height: 500px;
+	height: auto;
+}
+
+#panel-trades table.mercenaries td:nth-child(3) {
+	width: 20%;
+	text-align: right;
+}
+
+/* City Council panel */
+
+#panel-camp,
+#panel-shipyard {
+	width: 780px;
+	max-width: 780px;
+	height: auto;
+	max-height: 600px;
+}
+
+#panel-council {
+	width: 750px;
+	max-width: 750px;
+	height: auto;
+	max-height: 540px;
+}
+
+#tab-production {
+	overflow: auto;
+	max-height: 460px;
+}
+
+.ui .panel .army-recruiter,
+.ui .panel .navy-recruiter {
+	width: 630px;
+	float: right;
+	padding: 10px 0 0 0;
+	max-height: 410px;
+	overflow: auto;
+}
+
+.ui .panel .settlements-list {
+	overflow: auto;
+	max-height: 415px;
+}
+
+.ui .panel .army-list,
+.ui .panel .navy-list {
+	float: left;
+	width: 140px;
+	padding: 10px 0 0 0;
+}
+
+.ui .panel .army-recruiter fieldset,
+.ui .panel .navy-recruiter fieldset {
+	display: block;
+	float: left;
+	margin: 0 10px 10px 0;
+	width: 176px;
+	position: relative;
+}
+
+.ui .panel .army-recruiter fieldset:nth-child(3),
+.ui .panel .army-recruiter fieldset:nth-child(6),
+.ui .panel .army-recruiter fieldset:nth-child(9),
+.ui .panel .army-recruiter fieldset:nth-child(12),
+.ui .panel .navy-recruiter fieldset:nth-child(3),
+.ui .panel .navy-recruiter fieldset:nth-child(6),
+.ui .panel .navy-recruiter fieldset:nth-child(9),
+.ui .panel .navy-recruiter fieldset:nth-child(12) {
+	margin-right:0 !important;
+}
+
+.ui .panel .army-recruiter fieldset > img,
+.ui .panel .navy-recruiter fieldset > img {
+	float: right;
+	cursor: pointer;
+	bottom: 10px;
+	right: 10px;
+	position: absolute;
+}
+
+.ui .panel .army-recruiter fieldset .info,
+.ui .panel .navy-recruiter fieldset .info {
+	float: right;
+	width: 100px;
+	margin-left: 10px;
+}
+
+.ui .panel .army-recruiter fieldset .cost,
+.ui .panel .navy-recruiter fieldset .cost {
+	float: left;
+	width: 60px;
+}
+
+.ui .panel ul.advices {
+	max-height: 300px;
+	display: block;
+	margin: 0;
+	padding: 10px 0 0 0;
+	overflow: auto;
+}
+
+.ui .panel ul.advices li {
+	line-height: 30px;
+	padding-left: 50px;
+}
+
+.ui .panel .hired-mercenaries-list {
+	max-height: 370px;
+	overflow: auto;
+}
+
+/* City Storage panel */
+
+#panel-storage {
+	max-width: 790px;
+	max-height: 700px;
+	height: auto;
+}
+
+.ui .panel .navy-item,
+.ui .panel .army-item,
+.ui .panel .storage-item {
+	width: 75px;
+	height: 65px;
+	float: left;
+	text-align: center;
+	margin: 0 4px 4px 0;
+	position: relative;
+	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	font-size: 11px;
+}
+
+.ui .panel .navy-item,
+.ui .panel .army-item {
+	width: 65px;
+	height: 65px;
+	font-size: 11px;
+	position: relative;
+}
+
+.ui .panel .storage-item.small {
+	width: 46px;
+	height: 50px;
+	font-size: 11px;
+}
+
+.ui .panel .storage-item .title {
+	width: 100%;
+	display: inline-block;
+	width: 100%;
+	padding-top: 4px;
+}
+
+.ui .panel .navy-item span.amount,
+.ui .panel .army-item span.amount,
+.ui .panel .storage-item span.amount {
+	position: absolute;
+	bottom: 0;
+	right: 4px;
+}
+
+.ui .panel .navy-item img {
+	margin: 8px auto 0 auto;
+}
+
+.ui .panel .army-item img {
+	margin: 15px auto 0 auto;
+}
+
+.ui .panel .storage-item.small img {
+	margin: 10px auto 0 auto;
+	width: 20px;
+}
+
+.ui .panel .storage-item img {
+	width: 32px;
+}
+
+/* City info panel */
+
+#panel-settlement {
+	width: 470px;
+	max-width: 470px;
+	max-height: 600px;
+	height: auto;
+}
+
+#panel-settlement .ui-tabs-panel {
+	padding: 0 10px;
+}
+
+#panel-building {
+	max-height: 600px;
+	max-width: 1400px;
+}
+
+/* City Builder panel */
+
+#panel-buildings {
+	max-width: 940px;
+	max-height: 640px;
+	height: auto;
+	width: 510px;
+}
+
+#panel-buildings .b-desc {
+	margin-bottom: 10px;
+}
+
+#panel-buildings.expanded {
+	width: 830px !important;
+}
+
+#panel-buildings .building-item .building-info .btn {
+	float: none;
+	display: block;
+	border: 0;
+	background-color: #777;
+	border-radius: 0;
+	margin-top: 5px;
+}
+
+#panel-buildings .building-item {
+	width: 120px;
+	float: left;
+	text-align: center;
+	margin: 0 10px 10px 0;
+	position: relative;
+	box-shadow: inset 0 0 4px 0 rgba(0, 155, 70, 0.75);
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+#panel-buildings .building-item:nth-child(4),
+#panel-buildings .building-item:nth-child(8),
+#panel-buildings .building-item:nth-child(12),
+#panel-buildings .building-item:nth-child(16),
+#panel-buildings .building-item:nth-child(20),
+#panel-buildings .building-item:nth-child(24),
+#panel-buildings .building-item:nth-child(28),
+#panel-buildings .building-item:nth-child(32) {
+	margin-right: 0;
+}
+
+#panel-buildings .building-item.active {
+	opacity: 1 !important;
+}
+
+#panel-buildings .building-item .building-info {
+	display: none;
+	border-top: 1px solid #777;
+}
+
+#panel-buildings .building-item.disabled {
+	box-shadow: inset 0 0 4px 0 rgba(186, 105, 74, 0.75);
+}
+
+#panel-buildings .building-item .title {
+	padding-top: 6px;
+	display: inline-block;
+	font-size: 11px;
+}
+
+#panel-buildings .building-item img.building {
+	width: 100px;
+	height: 89px;
+}
+
+#panel-settlement .pact,
+#panel-settlement .alliance,
+#panel-settlement .war,
+#panel-settlement .ceasefire {
+	display: none;
+}
+
+#panel-new-army,
+#panel-new-spy,
+#panel-new-caravan {
+	max-width: 640px;
+	max-height: 600px;
+}
+
+.ui .panel .column {
+	width: 300px;
+	float: left;
+}
+
+.ui .panel .column:last-of-type {
+	margin-left: 10px;
+}
+
+.ui .panel fieldset select {
+	width: 100%;
+	border: 1px solid #aaa;
+	padding: 4px 0;
+}
+
+.ui .panel fieldset p {
+	margin: 10px 0 0 0;
+}
+
+#panel-academy {
+	max-height: 600px;
+	max-width: 620px;
+	width: 620px;
+}
+
+#panel-tavern {
+	max-height: 700px;
+	max-width: 620px;
+	width: 620px;
+}
+
+#panel-embassy {
+	max-height: 600px;
+	max-width: 720px;
+	width: 720px;
+}
+
+#panel-church {
+	max-height: 600px;
+	max-width: 620px;
+	width: 620px;
+}
+
+.ui .panel .section {
+	padding: 10px;
+}
+
+.ui .panel .section {
+	padding: 20px;
+}
+
+#panel-help .ui-tabs-panel li > a,
+#panel-help p > a {
+	text-decoration: underline;
+}
+
+.ui .panel .army-item-inc,
+.ui .panel .army-item-dec,
+.ui .panel .navy-item-inc,
+.ui .panel .navy-item-dec {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #aaa;
+	position: absolute;
+}
+
+.ui .panel .army-item-inc,
+.ui .panel .navy-item-inc {
+	left: 0;
+	top: 0;
+	background-color: #84da86;
+	border-bottom-right-radius: 20px;
+}
+
+.ui .panel .army-item-dec,
+.ui .panel .navy-item-dec {
+	right: 0;
+	top: 0;
+	background-color: #da9a84;
+	border-bottom-left-radius: 20px;
+}
+
+#panel-buildings .bldg-tabs {
+	padding: 10px 0 0 0;
+	overflow: auto;
+	max-height: 534px;
+}
+
+#panel-storage p {
+	margin-top: 10px;
+}
+
+#panel-ranks {
+	width: 300px;
+}
+
+#panel-ranks .ranks-list {
+	height: 300px;
+	overflow: auto;
+}
+
+#panel-church .religion-list {
+	padding: 20px;
+}
+
+#panel-church .religion-list .religion:nth-child(4), 
+#panel-church .religion-list .religion:nth-child(8) {
+	margin-right: 0;
+}
+
+#panel-church .religion-list .religion {
+	border-radius: 100%;
+	width: 128px;
+	height: 128px;
+	margin: 0 10px 10px 0;
+	float: left;
+	box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
+	position: relative;
+	cursor: pointer;
+}
+
+#panel-church .religion-list .religion.selected {
+	background-color: #ddd;
+}
+
+#panel-church .religion-list .religion span {
+	position: absolute;
+	bottom: 0;
+	padding-bottom: 20px;
+	width: 128px;
+	text-align: center;
+}
+
+#panel-new-caravan .caravan-resources {
+	overflow: auto;
+	max-height: 200px;
+}
+
+#panel-tavern .hero-list {
+	width: 70px;
+	padding: 10px 20px;
+}
+
+#panel-tavern .hero-info {
+	width: 300px;
+	padding: 20px;
+}
+
+#panel-tavern .hero-items {
+	width: 160px;
+	padding: 0;
+}
+
+#panel-tavern .hero-items .slot {
+	width: 46px;
+	height: 50px;
+	font-size: 11px;
+	float: left;
+	text-align: center;
+	margin: 0 4px 4px 0;
+	position: relative;
+	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	font-size: 34px;
+}
+
+#panel-tavern .hero-info h3 {
+	margin: 0 0 10px 0;
+}
+
+a.wikipedia {
+	width: 20px;
+	height: 20px;
+	background: transparent url(../images/ui/wikipedia.png) no-repeat;
+	display: inline-block;
+}

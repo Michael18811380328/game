@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tetris JS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="Neil Barkhina, Tetris, HtML5, Mobile, Desktop, iPhone, Android, Touch Controls, Keyboard Controls" />   
+	<meta name="description" content="Tetris Game written in Pure HTML, no Canvas. Minimalist Design and Wide browser support accross Desktop and Mobile Devices. Touch and Keyboard Controls." />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rivets/0.9.6/rivets.bundled.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" >
+</head>
+<script type="text/javascript">
+    var rando = Math.floor(Math.random() * 100000);
+    var script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js';
+    script.setAttribute("data-main",'config.js?v=' + rando);
+    document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+<style>
+body, html {
+    height: 100%;
+}
+
+.row{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+</style>
+<body>
+    <div id="divMain" class="text-center" style="height: 100%;background-color:rgb(231, 245, 255);">
+        <div id="loadingDiv" class="text-center" >
+        <br><br>
+            Loading...
+        </div>
+        <div id="header" style="display:none;">
+            <h3>
+                Tetris JS 
+                <a href="https://github.com/nbarkhina/TetrisJS" target="_blank">
+                    <img src="github_logo.png" style="height: 25px; padding-bottom: 5px; padding-left: 10px;">
+                </a>
+            </h3> 
+            <button class="btn btn-primary" id="btnStart" onclick="myApp.btnClick()">New Game</button>
+            <button class="btn btn-primary ml-2" id="btnStart" onclick="myApp.btnPause()"
+            rv-text="data.getPauseButtonText | call data.game_mode"></button>
+            <br>
+            <div class="d-md-none">
+                <b>FPS:</b> <span rv-text="data.currentfps"></span> 
+                <b>Level:</b> { data.level } <b>Lines:</b> { data.lines }
+            </div>
+            <div class="d-none d-md-block">
+                <br>
+            </div>
+        </div>
+        <div id="gameArea" class="row" style="display:none;">
+            <div class="col-md-4 d-none d-md-block" style="text-align:right;">
+                <b>FPS:</b> <span rv-text="data.currentfps"></span><br>
+                <b>Level:</b> { data.level }<br>
+                <b>Lines:</b> { data.lines }<br>
+                <br><br><br>
+                <div style="float:right;">
+                    <table style="text-align: center;">
+                        <tr>
+                            <td><i class="fas fa-arrow-up"></i></td>
+                            <td><div style="width:20px;"></div></td>
+                            <td>Rotate</td>
+                        </tr>
+                        <tr>
+                            <td><i class="fas fa-arrow-left"></i>&nbsp;<i class="fas fa-arrow-down"></i>&nbsp;<i class="fas fa-arrow-right"></i></td>
+                            <td></td>
+                            <td>Move</td>
+                        </tr>
+                        <tr>
+                            <td><b>A</b></td>
+                            <td></td>
+                            <td>Drop</td>
+                        </tr>
+                        <tr>
+                            <td><b>P</b></td>
+                            <td></td>
+                            <td>Pause</td>
+                        </tr>
+                        <tr>
+                            <td><b>N</b></td>
+                            <td></td>
+                            <td>New Game</td>
+                        </tr>
+                    </table>
+                </div>
+                <section style="position:relative;right:20px;" rv-html="data.message"></section>
+            </div>
+            <div class="col-md-4 col-8" id="gamediv">
+            </div>
+            <div class="col-md-4 col-4" style="text-align:left;">
+                <div class="d-none d-md-block">
+                    <b>Next Piece</b>
+                    <br>
+                </div>
+                <br>
+                <div id="nextpiecediv">
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+    
+</body>
+
+</html>

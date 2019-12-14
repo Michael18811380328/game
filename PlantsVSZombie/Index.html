@@ -1,0 +1,694 @@
+﻿<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="KeyWords" content="Javascript">
+    <meta name="Description" content="JavaScript版的植物大战僵尸">
+    <title>植物大战僵尸Javascript版</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <style type="text/css">
+    body {
+        -moz-user-select: none
+    }
+
+    td {
+        font-family: 宋体;
+        font-size: 12px
+    }
+
+    div {
+        left: 0
+    }
+
+    span {
+        cursor: default;
+    }
+
+    span,
+    div,
+    h2,
+    h3 {
+        padding: 0;
+        margin: 0
+    }
+
+    td.HandBookZombie {
+        background: url(images/interface/Almanac_ZombieWindow2.png) no-repeat;
+        width: 20%;
+        height: 16%;
+        text-align: center
+    }
+
+    #DivTeach {
+        filter: "alpha(opacity=90)";
+        /* IE 8 */
+        filter: alpha(opacity=90);
+        /* IE 4-7 */
+        opacity: .9;
+        /* FireFox,Safari(WebKit),Opera */
+        -moz-opacity: .9;
+        /* FireFox<3.5 */
+        position: absolute;
+        width: 900px;
+        height: 50px;
+        top: 500px;
+        left: 0;
+        z-index: 100;
+        text-align: center;
+        font-family: 幼圆;
+        font-size: 20pt;
+        font-weight: bold;
+        color: #FFFFFF;
+        background-color: #5B432E
+    }
+
+    .WindowFrame {
+        position: absolute;
+        width: 900px;
+        height: 600px;
+        OVERFLOW: hidden;
+        border: 3px outset;
+    }
+
+    #dFlagMeterTitleB {
+        position: absolute;
+        color: #000;
+        font-size: 18pt;
+        font-weight: bold;
+        width: 440px;
+        top: 15px;
+        left: -5px
+    }
+
+    #dFlagMeterTitleB span {
+        position: absolute;
+        color: #F93;
+        font-size: 18pt;
+        font-weight: bold;
+        width: 440px;
+        top: -1px;
+        left: -1px;
+    }
+
+    #dSurfaceBack {
+        position: absolute;
+        display: none;
+        top: 0;
+        width: 900px;
+        height: 600px;
+        z-index: 255
+    }
+
+    #dHelp {
+        width: 614px;
+        height: 399px;
+        background: url(images/interface/Help.png) no-repeat;
+        position: absolute;
+        display: none;
+        left: 143px;
+        top: 100px
+    }
+
+    #dSelectLevel {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        font-weight: bold;
+        display: none
+    }
+
+    #dOptionsMenuBack {
+        position: absolute;
+        text-align: center;
+        left: 244px;
+        top: 60px;
+        width: 412px;
+        height: 483px;
+        display: none;
+        background: url(images/interface/OptionsMenuback32.png) no-repeat;
+        _background: url(images/interface/OptionsMenuback8.png) no-repeat
+    }
+
+    .TitleBigContainer {
+        position: relative;
+        width: 220px;
+        margin: 120px auto 0 auto;
+        height: 240px;
+        overflow: hidden
+    }
+
+    .TitleSmallContainer {
+        position: relative;
+        width: 100%;
+        line-height: 35px;
+        color: #FFF;
+        font-size: 16px
+    }
+
+    .SmallLevel {
+        float: left;
+        cursor: pointer;
+        width: 50%
+    }
+
+    .BigLevel {
+        float: left;
+        color: #FC6;
+        font-size: 20px;
+        width: 100%;
+        height: 40px
+    }
+
+    .OptionsMenuButton,
+    .OptionsMenuButtonDown {
+        background: url(images/interface/OptionsBackButton32.png) no-repeat;
+        _background: url(images/interface/OptionsBackButton8.png) no-repeat;
+        float: left;
+        font-family: 黑体;
+        font-size: 32px;
+        cursor: pointer;
+        width: 360px;
+        height: 100px;
+        margin-left: 26px;
+        display: inline;
+        color: #FC6
+    }
+
+    .OptionsMenuButton {
+        background-position: 0 0
+    }
+
+    .OptionsMenuButtonDown {
+        background-position: 0 -100px
+    }
+
+    .OptionsMenuButtonSpan {
+        height: 100px;
+        line-height: 100px;
+        cursor: pointer
+    }
+
+    #dPCard img,
+    #dHandBookPCard img {
+        left: 0;
+        width: 70px;
+        height: 42px
+    }
+
+    #dHandBookZCard img {
+        position: absolute
+    }
+
+    #dHandBookZCard .span1 {
+        cursor: pointer;
+        width: 100px;
+        height: 60px;
+        float: left;
+        margin: 8px 0 0 2px;
+        position: relative
+    }
+
+    #dPCard .span1,
+    #dHandBookPCard .span1 {
+        cursor: pointer;
+        width: 70px;
+        height: 42px;
+        float: left;
+        margin: 8px 0 0 2px;
+        position: relative
+    }
+
+    #dPCard .span2,
+    #dHandBookPCard .span2 {
+        cursor: pointer;
+        text-align: center;
+        position: absolute;
+        left: 40px;
+        top: 27px;
+        font-family: Fixedsys;
+        font-size: 14px
+    }
+
+    #dHandBookZCard .span2 {
+        cursor: pointer;
+        text-align: center;
+        position: absolute;
+        left: 65px;
+        top: 42px;
+        font-family: Fixedsys;
+        font-size: 14px
+    }
+
+    #dCardList div {
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+        height: 60px
+    }
+
+    #dCardList span {
+        cursor: pointer;
+        position: absolute;
+        left: 66px;
+        top: 40px;
+        width: 34px;
+        height: 20px;
+        font-family: Fixedsys;
+        font-size: 11pt
+    }
+
+    #dCardList img {
+        position: absolute;
+        width: 100px;
+        height: 60px
+    }
+
+    .SelectModal {
+        color: #FC6;
+        font-weight: bold;
+        cursor: pointer;
+        background: url(images/interface/Button.png) no-repeat center;
+        text-align: center;
+        height: 43px;
+        width: 115px
+    }
+
+    .Menu {
+        float: left;
+        text-align: center;
+        line-height: 41px;
+        font-weight: bold;
+        font-family: 黑体;
+        color: #00CB08;
+        height: 41px;
+        width: 113px;
+        background: url(images/interface/Button.png) no-repeat
+    }
+
+    #imgSF {
+        position: absolute;
+        cursor: pointer;
+        z-index: 254
+    }
+
+    #PointerUD {
+        position: absolute;
+        z-index: 50
+    }
+
+    #dTitle {
+        visibility: hidden;
+        position: absolute;
+        left: 100;
+        background-color: #FFD;
+        width: 150px;
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.5;
+        border: 1px solid #000;
+        padding: 3px;
+        z-index: 254
+    }
+
+    #dAll img,
+    #dFlagMeter img,
+    #dHandBookPCard img {
+        position: absolute;
+        border-style: none
+    }
+
+    #dProcess {
+        text-align: center;
+        border: 1px solid #FFF;
+        background-color: #000;
+        color: #FFF;
+        position: absolute;
+        left: 130px;
+        top: 50px;
+        width: 640px;
+        height: 500px;
+        visibility: hidden;
+        z-index: 250;
+        padding: 10px;
+        *padding: 10px 5px 10px 2px
+    }
+
+    #dProcess img {
+        margin: 5px 0
+    }
+
+    #dProcess h2 {
+        font-size: 16px;
+        margin: 0 10px;
+        color: #E80
+    }
+
+    #dProcess h3 {
+        font-size: 12px
+    }
+
+    #dProcess2 {
+        overflow: auto;
+        line-height: 18px;
+        font-size: 12px;
+        text-align: left;
+        width: 100%;
+        *width: 96%;
+        height: 450px
+    }
+
+    #dLink {
+        position: absolute;
+        left: 5px;
+        top: 607px
+    }
+
+    #dLink div {
+        float: left;
+        margin-right: 2px
+    }
+
+    .Tom1 {
+        left: 0;
+        top: 0;
+        width: 86px;
+        height: 91px;
+        background: url(images/interface/Tombstones.png) no-repeat
+    }
+
+    .Tom2 {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 86px;
+        height: 91px;
+        background: url(images/interface/Tombstone_mounds.png) no-repeat
+    }
+
+    .flipH {
+        -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
+        -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
+        -o-transform: matrix(-1, 0, 0, 1, 0, 0);
+    }
+
+    #dAD2 div {
+        margin-bottom: 2px
+    }
+
+    .a5gg {
+        position: relative;
+        float: left;
+        width: 96px;
+        text-align: center;
+        background: #f0f0f0;
+        font-size: 12px;
+        border: 1px solid #CCD3DF;
+        padding: 3px
+    }
+
+    .a5gg a {
+        text-decoration: none;
+        color: #336CD8
+    }
+
+    .a5gg dd {
+        margin-left: 2px;
+        width: 30px;
+        height: 20px;
+        line-height: 20px;
+        float: left
+    }
+    </style>
+</head>
+
+<body id="dBody" topmargin="0" leftmargin="0" oncontextmenu="return false" ondragstart="return false" onselectstart="return false" bgcolor="#008080">
+    <!--进度条-->
+    <div id="dFlagMeter" style="visibility:hidden;position:absolute;z-index:255;left:260px;top:500px;height:40px">
+        <div id="dFlagMeterTitle" style="position:absolute;text-align:right">
+            <div id="dFlagMeterTitleB"><span id="sFlagMeterTitleF"></span></div>
+        </div>
+        <div id="dFlagMeterContent" style="position:absolute;left:444px;width:157px;height:40px">
+            <img id="imgFlagMeterEmpty" border="0" src="images/interface/FlagMeterEmpty.png" style="top: 17px">
+            <img id="imgFlagMeterFull" border="0" src="images/interface/FlagMeterFull.png" style="top: 17px;clip:rect(0,auto,auto,157px)">
+            <img id="imgFlag1" src="images/interface/FlagMeterParts2.png" style="left: 10px; top: 14px;visibility:hidden">
+            <img id="imgFlag2" src="images/interface/FlagMeterParts2.png" style="left: 40px; top: 14px;visibility:hidden">
+            <img id="imgFlag3" src="images/interface/FlagMeterParts2.png" style="left: 70px; top: 14px;visibility:hidden">
+            <img id="imgFlag4" src="images/interface/FlagMeterParts2.png" style="left: 100px; top: 14px;visibility:hidden">
+            <img id="imgGQJC" src="images/interface/FlagMeterLevelProgress.png" style="left: 35px; top: 29px;visibility:hidden">
+            <img id="imgFlagHead" src="images/interface/FlagMeterParts1.png" style="left: 139px; top: 13px">
+        </div>
+    </div>
+    <script src="js/Cfunction.js" type="text/javascript"></script>
+    <script src="js/CPlants.js" type="text/javascript"></script>
+    <script src="js/CZombie.js" type="text/javascript"></script>
+    <script id="JSPVZ" type="text/javascript"></script>
+    <script id="JSProcess" type="text/javascript"></script>
+    <!--选项界面-->
+    <div id="dSurface" class="WindowFrame" style="display:none;z-index:255;left:0">
+        <div id="iSurfaceBackground">
+            <map name="FPMap0">
+                <area href="javascript:void(0)" shape="rect" coords="641, 466, 724, 527" onClick="ShowOptions()">
+                <area href="javascript:void(0)" shape="rect" coords="718, 512, 790, 558" onClick="ShowHelp()">
+                <area href="javascript:void(0)" shape="rect" coords="800, 495, 879, 548" onClick="SetNone($('dSurface'))">
+            </map>
+            <img src="images/interface/Surface.png" usemap="#FPMap0" border="0">
+            <div style="position: absolute;background:url('images/interface/SelectorScreenStartAdventur.png') no-repeat;left:474px;top:80px;width:331px;height:146px;cursor:pointer" onMouseOver="this.style.backgroundPosition='bottom'" onMouseOut="this.style.backgroundPosition='top'" onClick="ShowLevel()"></div>
+            <div style="position: absolute;background:url('images/interface/SelectorScreenSurvival.png') no-repeat;left:474px;top:203px;width:313px;height:131px;cursor:pointer" onMouseOver="this.style.backgroundPosition='bottom'" onMouseOut="this.style.backgroundPosition='top'" onClick="ShowMiniGame()"></div>
+            <div style="position: absolute;background:url('images/interface/SelectorScreenChallenges.png') no-repeat;left:478px;top:303px;width:286px;height:122px;cursor:pointer" onMouseOver="this.style.backgroundPosition='bottom'" onMouseOut="this.style.backgroundPosition='top'" onClick="ShowRiddleGame()"></div>
+            <div style="position: absolute;background:url('images/interface/SelectorScreen_Almanac.png') no-repeat;left:379px;top:426px;width:99px;height:99px;cursor:pointer" onMouseOver="this.style.backgroundPosition='bottom'" onMouseOut="this.style.backgroundPosition='top'" onClick="SetVisible($('dHandBook'))"></div>
+        </div>
+        <div id="dPause" style="position:absolute;left:233px;top:50px;width:434px;display:none;font-weight:bold">
+            <table border="0" width="434" cellspacing="0" cellpadding="0" height="484">
+                <tr>
+                    <td width="107" height="142" valign="bottom">
+                        <img border="0" src="images/interface/dialog_topleft.png" width="107" height="97"></td>
+                    <td style="background: url(images/interface/dialog_topmiddle.png) repeat-x bottom center" height="142" valign="top" align="center">
+                        <img border="0" src="images/interface/dialog_header.png" width="187" height="64"></td>
+                    <td width="120" height="142" valign="bottom">
+                        <img border="0" src="images/interface/dialog_topright.png" width="120" height="97"></td>
+                </tr>
+                <tr>
+                    <td width="107" style="background:url(images/interface/dialog_centerleft.png) repeat-y">　</td>
+                    <td bgcolor="#212431">　</td>
+                    <td width="120" style="background:url(images/interface/dialog_centerright.png) repeat-y">　</td>
+                </tr>
+                <tr>
+                    <td width="107" valign="top" height="114">
+                        <img border="0" src="images/interface/dialog_bottomleft.png" width="107" height="97"></td>
+                    <td style="background: url(images/interface/dialog_bottommiddle.png) repeat-x" height="114"> </td>
+                    <td width="120" valign="top" height="114">
+                        <img border="0" src="images/interface/dialog_bottomright.png" width="108" height="97"></td>
+                </tr>
+            </table>
+            <div style="position:absolute;left:0;top:90px;z-index:200;width:100%">
+                <div style="position:relative;cursor:pointer;text-align:center;height:20px;width:100%;color:#F93;font-size: 16px;line-height:20px" onClick="SetNone($('dSurface'),$('dPause'))">点这里隐藏暂停窗口</div>
+                <div id="dPauseAD" style="position:relative;left:0;width:100%;height:100%;text-align:center"></div>
+                <div style="width:100%;color:#FFF;font-size:18px;line-height:30px;text-align:center">休息，休息一会儿~</div>
+            </div>
+            <div style="position:absolute;cursor:pointer;left:139px;top:404px;font-family:宋体;color:#F93;font-size: 30px; font-weight:700" onClick="PauseGame($('dMenu0'))">返回游戏</div>
+        </div>
+        <div id="dSurfaceBack">
+            <div id="dHelp" onClick="HiddenHelp()"></div>
+            <div id="dOptionsMenuback">
+                <div id="dOptionsMenu" style="line-height:40px;position:absolute;width:100%;height:100%;display:none;font-weight:bold">
+                    <div style="margin-top:150px;height:80px">
+                        <input type="checkbox" id="cAutoSun" value="1" onChange="CheckAutoSun(this)"> <label for="cAutoSun" id="lAutoSun" style="color:#FFF">自动拾取阳光</label><br><input type="checkbox" id="cSilence" value="1"> <label for="cSilence" id="lSilence" style="color:#FFF">静&nbsp;&nbsp; &nbsp;&nbsp;音&nbsp;&nbsp; </label>
+                    </div>
+                    <div class="BigLevel" style="cursor:pointer" onClick="SelectModal(oS.Lvl)">重新开始</div>
+                    <div class="BigLevel" style="cursor:pointer" onClick="HiddenOptions();SelectModal(0);SetBlock($('dSurface'),$('iSurfaceBackground'));">返回菜单</div>
+                    <div class="OptionsMenuButton" style="margin-top:68px" onMouseDown="OptionsMenuDown(this,$('sOptionsMenu'))" onMouseUp="OptionsMenuUP(this,$('sOptionsMenu'));HiddenOptions();CheckAutoSun($('cAutoSun'));CheckSilence($('cSilence'))"><span id="sOptionsMenu" class="OptionsMenuButtonSpan">返回游戏</span></div>
+                </div>
+                <div id="dSelectLevel">
+                    <div class="TitleBigContainer">
+                        <div id="dTitleSmallContainer" class="TitleSmallContainer" style="display:none">
+                            <div id="dBigLvl1">
+                                <div class="BigLevel">&nbsp;&nbsp;&nbsp;第一大关&nbsp;&nbsp;&nbsp;<span style="cursor:pointer" onClick="SetNone($('dBigLvl1'));SetBlock($('dBigLvl2'))" title="点击进入到第二大关">>></span></div>
+                                <div onClick="SelectModal(1)" class="SmallLevel">第一关</div>
+                                <div onClick="SelectModal(2)" class="SmallLevel">第二关</div>
+                                <div onClick="SelectModal(3)" class="SmallLevel">第三关</div>
+                                <div onClick="SelectModal(4)" class="SmallLevel">第四关</div>
+                                <div onClick="SelectModal(5)" class="SmallLevel">第五关</div>
+                                <div onClick="SelectModal(6)" class="SmallLevel">第六关</div>
+                                <div onClick="SelectModal(7)" class="SmallLevel">第七关</div>
+                                <div onClick="SelectModal(8)" class="SmallLevel">第八关</div>
+                                <div onClick="SelectModal(9)" class="SmallLevel">第九关</div>
+                                <div onClick="SelectModal(10)" class="SmallLevel">第十关</div>
+                            </div>
+                            <div id="dBigLvl2" style="position:absolute;left:0;top:0;display:none">
+                                <div class="BigLevel"><span style="cursor:pointer" onClick="SetNone($('dBigLvl2'));SetBlock($('dBigLvl1'))" title="点击进入到第一大关">
+                                        <<</span>&nbsp;&nbsp;&nbsp;第二大关&nbsp;&nbsp;&nbsp; <span style="cursor:pointer" onClick="SetNone($('dBigLvl2'));SetBlock($('dBigLvl3'))" title="点击进入到第三大关">>>
+                                    </span></div>
+                                <div onClick="SelectModal(11)" class="SmallLevel">第一关</div>
+                                <div onClick="SelectModal(12)" class="SmallLevel">第二关</div>
+                                <div onClick="SelectModal(13)" class="SmallLevel">第三关</div>
+                                <div onClick="SelectModal(14)" class="SmallLevel">第四关</div>
+                                <div onClick="SelectModal(15)" class="SmallLevel">第五关</div>
+                                <div onClick="SelectModal(16)" class="SmallLevel">第六关</div>
+                                <div onClick="SelectModal(17)" class="SmallLevel">第七关</div>
+                                <div onClick="SelectModal(18)" class="SmallLevel">第八关</div>
+                                <div onClick="SelectModal(19)" class="SmallLevel">第九关</div>
+                                <div onClick="SelectModal(20)" class="SmallLevel">第十关</div>
+                            </div>
+                            <div id="dBigLvl3" style="position:absolute;left:0;top:0;display:none">
+                                <div class="BigLevel"><span style="cursor:pointer" onClick="SetNone($('dBigLvl3'));SetBlock($('dBigLvl2'))" title="点击进入到第二大关">
+                                        <<</span>&nbsp;&nbsp;&nbsp;第三大关 </div> <div onClick="SelectModal(21)" class="SmallLevel">第一关</div>
+                                <div onClick="SelectModal(22)" class="SmallLevel">第二关</div>
+                                <div onClick="SelectModal(23)" class="SmallLevel">第三关</div>
+                            </div>
+                        </div>
+                        <div id="dMiniSmallContainer" class="TitleSmallContainer" style="display:none">
+                            <div id="dMiniLvl1">
+                                <div class="BigLevel">小游戏模式&nbsp;<span style="cursor:pointer" onClick="SetNone($('dMiniLvl1'));SetBlock($('dMiniLvl2'))" title="点击进入到下一页">>></span></div>
+                                <div onClick="SelectModal('Boom')" class="SmallLevel" style="width:100%">核爆！</div>
+                                <div onClick="SelectModal('FlightOfFancy')" class="SmallLevel" style="width:100%">我心飞翔</div>
+                                <div onClick="SelectModal('DisposableProducts')" class="SmallLevel" style="width:100%">一次性消费</div>
+                                <div onClick="SelectModal('StrongLevel')" class="SmallLevel" style="width:100%">超乎寻常的压力！</div>
+                                <div onClick="SelectModal('TestUHeart')" class="SmallLevel" style="width:100%">你的心脏够强劲吗？</div>
+                            </div>
+                            <div id="dMiniLvl2" style="position:absolute;left:0;top:0;display:none">
+                                <div class="BigLevel"><span style="cursor:pointer" onClick="SetNone($('dMiniLvl2'));SetBlock($('dMiniLvl1'))" title="点击进入到上一页">
+                                        <<</span>&nbsp;小游戏模式 </div> <div onClick="SelectModal('ZombieRun')" class="SmallLevel" style="width:100%">僵尸快跑！</div>
+                                <div onClick="SelectModal('PovertyOfTheSoil')" class="SmallLevel" style="width:100%">贫瘠之地</div>
+                                <div onClick="SelectModal('MassGrave')" class="SmallLevel" style="width:100%">乱葬岗</div>
+                                <div onClick="SelectModal('DependOnHeavenForFood')" class="SmallLevel" style="width:100%">靠天吃饭</div>
+                            </div>
+                        </div>
+                        <div id="dRiddleSmallContainer" class="TitleSmallContainer" style="display:none;position:absolute;left:0;top:0">
+                            <div class="BigLevel">解谜模式</div>
+                            <div onClick="SelectModal('ImZombie1')" class="SmallLevel" style="width:100%">我是僵尸！</div>
+                            <div onClick="SelectModal('ImZombie2')" class="SmallLevel" style="width:100%">我也是僵尸！</div>
+                            <div onClick="SelectModal('ImZombie7')" class="SmallLevel" style="width:100%">僵尸摇摆</div>
+                        </div>
+                    </div>
+                    <div class="OptionsMenuButton" style="margin-top:20px" onMouseDown="OptionsMenuDown(this,$('sLevelMenu'))" onMouseUp="OptionsMenuUP(this,$('sLevelMenu'));HiddenLevel();HiddenMiniGame();HiddenRiddleGame();">
+                        <span id="sLevelMenu" class="OptionsMenuButtonSpan">返&nbsp;&nbsp;&nbsp;&nbsp;回</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--主界面EDAll-->
+    <div class="WindowFrame" id="dAll" style="position:absolute;top:0;width:900px;background:#000">
+        <!--背景图片-->
+        <div style="position:absolute;width:1400px;height:600px;visibility:hidden;z-index:0" id="tGround"></div>
+        <!--左边卡片列-->
+        <div id="dCardList" style="visibility:hidden;position:absolute;left:500px;top:0;width:100px;overflow:visible;z-index:254"></div>
+        <!--出场僵尸显示-->
+        <div id="dZombie" style="position:absolute;width:335px;height:600px;left:1065px;top:0;z-index:1"></div>
+        <!--选择卡片-->
+        <div id="dSelectCard" align="center" style="visibility:hidden;position:absolute;left:600px;top:0;width:465px;height:600px;z-index:1;background: url('images/interface/SeedChooser_Background.png') no-repeat">
+            <div style="text-align:center;line-height:35px;font-size: 12pt;color:#FC6;height:35px;width:100%;top:0;font-family:新宋体;font-weight: bold">选择你的植物</div>
+            <div id="dPCard" style="position:relative;width:96%;height:455px;"></div>
+            <div style="width:100%;height:40px;line-height:40px;text-align:center;margin-top:10px">
+                <input onClick="ResetSelectCard()" type="button" value="重选" name="btnReset" id="btnReset" style="width: 65; height: 35; border-left: 3px solid #85411C; border-right: 3px solid #4E250C; border-top: 3px solid #85411C; border-bottom: 3px solid #4E250C; background-color: #602D11; color:#FC6; font-weight:bold; font-size:14px;cursor:pointer">
+                <input onClick="LetsGO()" type="button" value="GO!" disabled="disabled" name="btnOK" id="btnOK" style="width: 65; height: 35; border-left: 3px solid #85411C; border-right: 3px solid #4E250C; border-top: 3px solid #85411C; border-bottom: 3px solid #4E250C; background-color: #602D11; color:#888; font-weight:bold; font-size:14px;cursor:pointer">
+            </div>
+        </div>
+        <!--阳光和铲子-->
+        <div id="dTop" style="position:absolute;left:605px;top:561px;height:35px;width:123px;visibility:hidden;z-index:1;">
+            <div id="dSunNum" style="background:url('images/interface/SunBack.png') no-repeat;position:absolute;width:123px;height:35px"><span id="sSunNum" style="text-align:center;position:absolute;top:4px;left:43px;width:68px;font-family:Verdana;font-weight:bold;font-size:18pt"></span></div>
+            <div id="tdShovel" style="position:absolute;width:71px;height:35px;left:130px;background: url('images/interface/ShovelBack.png') no-repeat;visibility:hidden"><img id="imgShovel" src="images/interface/Shovel.png" onMouseDown="ChoseShovel(event)"></div>
+        </div>
+        <div id="dPlants" style="position:absolute;left:0;top:0;z-index:2"></div>
+        <div id="dZombies" style="position:absolute;left:0;top:0;z-index:2"></div>
+    </div>
+    <!--菜单-->
+    <div id="dMenu" style="visibility:hidden;position:absolute;cursor:pointer;width:226px;height:41px;left:677px;z-index:254">
+        <div id="dMenu0" class="Menu" onClick="PauseGame(this)">暂 停</div>
+        <div id="dMenu1" class="Menu" onClick="ClickMenu()">菜 单</div>
+    </div>
+    <!--图鉴-->
+    <div id="dHandBook" style="visibility:hidden;position:absolute;z-index:255;width:800px;background:url(images/interface/Almanac_IndexBack.jpg) no-repeat" class="WindowFrame">
+        <div style="position:relative;text-align:center;line-height:88px;height:88px;width:100%;font-size: 32px; font-weight: bold; font-family: 黑体;">图鉴——索引</div>
+        <div style="position:relative;height:473px;width:100%">
+            <div style="position:absolute;width:50%;text-align:center;padding-top:135px">
+                <img border="0" src="images/Plants/SunFlower/SunFlower.gif" width="73" height="74"><br>
+                <input type="button" value="查看植物" name="btnViewPlant" id="btnViewPlant" style="cursor:pointer;width: 113; height: 41; border-left: 3px solid #85411C; border-right: 3px solid #4E250C; border-top: 3px solid #85411C; border-bottom: 3px solid #4E250C; background-color: #8F431B; color:#FFCC66; font-weight:bold; font-size:14pt; font-family:幼圆;margin-top:43px" onClick="InitHandBookPCard()">
+            </div>
+            <div style="position:absolute;left:50%;width:50%;text-align:center;padding-top:95px">
+                <img border="0" src="images/Zombies/Zombie/1.gif" width="149" height="130"><br>
+                <input type="button" value="查看僵尸" name="btnViewZombie" id="btnViewZombie" style="border:1px solid #212431; cursor:pointer;width: 113; height: 41; background:#212431 url('images/interface/Button.png'); color:#00F500; font-weight:bold; font-size:14pt; font-family:幼圆;margin-top:25px" onClick="InitHandBookZCard()">
+            </div>
+        </div>
+        <div style="margin-top:8px;margin-left:670px;text-align:center;cursor:pointer;width:89px;height:26px;line-height:26px;background:url(images/interface/Almanac_CloseButton.png);color:#000080;font-size:12px" onMouseOver="this.style.backgroundPosition='bottom'" onMouseOut="this.style.backgroundPosition='top'" onClick="SetHidden($('dHandBook'))">关 闭&nbsp;</div>
+    </div>
+    <div id="dHandBookPZ" style="visibility:hidden;position:absolute;z-index:255;width:800px;background:url(images/interface/Almanac_PlantBack.jpg) no-repeat" class="WindowFrame">
+        <div id="dHandBookP" style="position:absolute;top:0;width:100%;height:567px">
+            <div style="position:absolute;top:0;width:100%;height:70px;line-height:70px;text-align:center;font-size:20px;color:#CEAA31;font-family:黑体;font-weight: bold;">图鉴——植物</div>
+            <div id="dHandBookPCard" style="position:absolute;top:71px;width:55%;height:497px;margin:25px 0 0 15px"></div>
+            <div id="pPlantBack" style="position:absolute;left:518px;top:84px;width:200px;height:200px;background:url('images/interface/Almanac_Ground.jpg') no-repeat"></div>
+            <div style="position:absolute;text-align:center;width:45%;left:55%;height:497px;top:71px;background:url(images/interface/Almanac_PlantCard.png) no-repeat 20px 10px">
+                <div id="pHandBookPlant" style="width:100%;height:180px;background-repeat:no-repeat;background-position:50% 70%"></div>
+                <div id="dHandBookPlantName" style="width:100%;height:60px;text-align:center;line-height:60px;font-size:20px;color:#CEAA31;font-family:宋体;font-weight: bold;"></div>
+                <div id="dProducePlant" style="margin-left:auto;margin-right:auto;width:74%;height:210px;text-align:left;font-size:13px;line-height:16px"></div>
+                <div style="width:74%;font-size:14px;margin-left:auto;margin-right:auto;text-align:left">
+                    <span style="float:left;width:20%">花费:</span><span id="spSunNum" style="float:left;width:25%"></span><span style="float:left;width:30%">冷却时间:</span><span id="spCoolTime" style="float:left;width:25%"></span>
+                </div>
+            </div>
+        </div>
+        <div id="dHandBookZ" style="display:none;position:absolute;top:0;width:100%;height:567px">
+            <div style="position:absolute;top:0;width:100%;height:70px;line-height:80px;text-align:center;font-size:20px;color:#0F0;font-family:黑体;font-weight: bold;">图鉴——僵尸</div>
+            <div id="dHandBookZCard" style="position:absolute;top:71px;width:55%;height:497px;margin:25px 0 0 20px"></div>
+            <div id="pZombieBack" style="position:absolute;left:512px;top:111px;width:200px;height:200px;background:url('images/interface/Almanac_Ground.jpg') no-repeat"></div>
+            <div style="position:absolute;text-align:center;left:55%;width:42%;height:497px;top:71px;background:url(images/interface/Almanac_ZombieCard.png) no-repeat 10px 8px">
+                <div id="pHandBookZombie" style="width:100%;height:250px;background-repeat:no-repeat;background-position:50% 70%"></div>
+                <div id="dHandBookZombieName" style="width:100%;height:60px;text-align:center;line-height:60px;font-size:20px;color:#CEAA31;font-family:宋体;font-weight: bold;"></div>
+                <div id="dProduceZombie" style="margin-left:auto;margin-right:auto;width:74%;height:210px;text-align:left;font-size:13px;line-height:16px"></div>
+            </div>
+        </div>
+        <div style="position:absolute;left:0;top:568px;width:100%">
+            <div style="position:absolute;left:30px;text-align:center;cursor:pointer;width:164px;height:26px;line-height:26px;background:url(images/interface/Almanac_IndexButton.png);color:#000080;font-size:12px" onMouseOver="this.style.backgroundPosition='bottom'" onMouseOut="this.style.backgroundPosition='top'" onClick="SetNone($('dHandBookP'),$('dHandBookZ'));SetHidden($('dHandBookPZ'))">图鉴索引</div>
+            <div style="position:absolute;left:670px;text-align:center;cursor:pointer;width:89px;height:26px;line-height:26px;background:url(images/interface/Almanac_CloseButton.png);color:#000080;font-size:12px" onMouseOver="this.style.backgroundPosition='bottom'" onMouseOut="this.style.backgroundPosition='top'" onClick="SetNone($('dHandBookP'),$('dHandBookZ'));SetHidden($('dHandBookPZ'),$('dHandBook'))">关 闭&nbsp;</div>
+        </div>
+    </div>
+    <!--获得新植物-->
+    <div id="dNewPlant" style="visibility:hidden;position:absolute;width:800px;height:600px;background:url(images/interface/AwardScreen_Back.jpg) no-repeat">
+        <div id="dNewPlantTitle" style="position:absolute;left:50%;text-align:center;margin-left:-250px;color: #FC6; font-size: 20px;height:90px;line-height:90px; font-weight: bold; width:500px">你获得了一棵新的植物！</div>
+        <div style="position:absolute;top:100px;width:800px;height:191px;line-height:191px;text-align:center">
+            <img id="iNewPlantCard" border="0">
+        </div>
+        <br>
+        <div id="dNewPlantName" style="position:absolute;position:absolute;top:291px;text-align:center;left:50%;margin-left:-150px;width:300px;height:55px;font-family: 宋体; font-size: 20px; color: #FC6; font-weight: bold;line-height:55px">abc</div>
+        <br><br><br>
+        <div id="dNewPlantTooltip" style="position:absolute;left:50%;top:400px;text-align:center;margin-left:-140px;width:280px;font-weight: bold;font-family: 宋体; font-size: 12px;color:#232323">abc</div>
+        <br><br><br><br><br><br>
+        <input type="button" value="下一关！" name="btnNextLevel" id="btnNextLevel" style="position:absolute;cursor:pointer;width: 113; height: 41; border-left: 3px solid #85411C; border-right: 3px solid #4E250C; border-top: 3px solid #85411C; border-bottom: 3px solid #4E250C; background-color: #8F431B; color:#FC6; font-weight:bold; font-size:14px; font-family:幼圆; left:344; top:507">
+    </div>
+    <!--开发进度显示-->
+    <div id="dProcess">
+        <div id="dProcess2">
+            <span id="sFailed" style="line-height:30px;font-size:16px;color:#FF0;font-weight:bold">
+                <br><br>未成功从作者网站上加载到进度文件<br>如果互联网未连接或者作者网站无法成功打开则无法查看最新进度显示！
+            </span>
+        </div>
+        <br>
+        <input type="button" value="关闭" onClick="SetHidden($('dProcess'))" style="cursor:pointer;width: 113px; height: 30px; border-left: 3px solid #85411C; border-right: 3px solid #4E250C; border-top: 3px solid #85411C; border-bottom: 3px solid #4E250C; background-color: #8F431B; color:#FC6; font-weight:bold; font-size:14px; font-family:幼圆">
+    </div>
+    <div id="oEmbed"></div>
+    <!--显示底部广告层-->
+    <script type="text/javascript">
+    $User.isAuthorWebsite && ShowAD();
+
+    //背景音乐和自动拾取阳光代码
+    $User.Client.PC && $User.HTTP ? (
+        //电脑且是Http协议访问，则读取缓存
+        //缓存是允许自动拾取阳光，则勾选.默认不自动拾取
+        (oS.AutoSun = Math.floor(getCookie('JSPVZAutoSun'))) && ($('cAutoSun').checked = true),
+        //是否静音，默认不静音
+        (oS.Silence = Math.floor(getCookie('JSPVZSilence'))) && ($('cSilence').checked = true)
+    ) : (
+        //非电脑或者非http协议，默认自动拾取阳光
+        oS.AutoSun = 1, $('cAutoSun').checked = true,
+        //默认不静音
+        oS.Silence = 0, $('cSilence').checked = false
+    );
+
+    //建议升级IE6的提示
+    $User.Browser.IE6 && (window.status = '还在使用石器时代的IE6？使用高版本浏览器能获得更好的视觉和游戏运行效率的体验！');
+
+    //初始化系统对象
+    LoadLvl();
+    </script>
+</body>
+
+</html>

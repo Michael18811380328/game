@@ -1,0 +1,10 @@
+*.log
+*.tmp
+Thumbs.db
+node_modules
+images/assets/**/*
+temp/**/*
+.DS_Store
+saves/*
+server/**/*
+.idea

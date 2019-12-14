@@ -1,0 +1,88 @@
+/* Progress bars */
+
+.progress {
+	height: 20px;
+	border: 1px solid #888;
+	background: rgb(168, 168, 168);
+	background: -moz-linear-gradient(top, rgba(168, 168, 168, 1) 0%,rgba(204, 204, 204, 1) 23%);
+	background: linear-gradient(top, rgba(168, 168, 168, 1) 0%,rgba(204, 204, 204, 1) 23%);
+	line-height: 100%;
+	display: inline-block;
+	position: relative;
+	padding: 0;
+}
+
+.progress.small {
+	width: 200px;
+}
+
+.progress.big {
+	width: 400px;
+}
+
+.progress.large {
+	width: 400px;
+	height: 40px;
+	margin: 0 auto;
+	display: block;
+}
+
+.progress.large .bar {
+	height: 40px;
+}
+
+.progress .bar {
+	background: -moz-linear-gradient(top, #472e18 0%, #fff 50%, #25140a 100%);
+	background: linear-gradient(top, #472e18 0%, #fff 50%, #25140a 100%);
+	height: 20px;
+	border-right: 1px solid #888; 
+}
+
+.progress .bar p {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	margin: 0;
+	line-height: 20px;
+	text-shadow: 1px 1px 2px #000;
+	color: #fff;
+}
+
+.progress.large .bar p {
+	line-height: 40px;
+}
+
+.progress .bar.good {
+	background: #00890b;
+	background: linear-gradient(top, #00890b 0%, #1df432 50%, #00890b 100%);
+	background: -moz-linear-gradient(top, #00890b 0%, #1df432 50%, #00890b 100%);
+}
+
+.progress .bar.bad {
+	background: #e2e200;
+	background: linear-gradient(top, #e2e200 0%, #d39b00 50%, #e2e200 100%);
+	background: -moz-linear-gradient(top, #e2e200 0%, #d39b00 50%, #e2e200 100%);
+}
+
+.progress .bar.vbad {
+	background: #f70000;
+	background: linear-gradient(top, #f70000 0%, #b50000 50%, #f70000 100%);
+	background: -moz-linear-gradient(top, #f70000 0%, #b50000 50%, #f70000 100%);
+}
+
+.progress .bar.ubad {
+	background: linear-gradient(top, #555 0%, #f10000 50%, #8b0000 100%);
+	background: -moz-linear-gradient(top, #555 0%, #f10000 50%, #8b0000 100%);
+}
+
+.progress .bar.vgood {
+	background: #0092af;
+	background: linear-gradient(top, #0092af 0%, #1effe4 50%, #0092af 100%);
+	background: -moz-linear-gradient(top, #0092af 0%, #1effe4 50%, #0092af 100%);
+}
+
+.progress .bar.ugood {
+	background: #0700e2;
+	background: linear-gradient(top, #0700e2 0%, #1c7bef 50%, #0700e2 100%);
+	background: -moz-linear-gradient(top, #0700e2 0%, #1c7bef 50%, #0700e2 100%);
+}

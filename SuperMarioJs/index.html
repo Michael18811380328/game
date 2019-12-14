@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <title>超级玛丽</title>
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+  </head>
+
+  <body>
+    <h1>Javascript反编译超级玛丽</h1>
+
+    <!-- 使用canvas实现游戏背景 -->
+    <canvas id="canvas" width="256" height="240"></canvas>
+    
+    <!-- 用户操作 -->
+    <div>
+      Key： ASDW / IO / Enter
+      <input id="chkSwapAB" type="checkbox">
+      <label for="chkSwapAB">Swap AB</label>
+    </div>
+    <div>
+      Zoom：
+      <button id="btnSize1X">1x</button>
+      <button id="btnSize2X">2x</button>
+      <button id="btnSizeScreen" disabled>Full Screen</button>
+      <input id="chkPxStyle" type="checkbox" disabled>
+      <label for="chkPxStyle">Pixelated (webkit only)</label>
+    </div>
+    <div>
+      Gear：
+      <input id="rangeSpeed" type="range" value="0">
+      <span id="labelSpeed">1</span>x
+    </div>
+    <div>
+      <input id="chkMute" type="checkbox">
+      <label for="chkMute" disabled>Mute</label>
+      <button id="btnBenchmark">Benchmark</button>
+    </div>
+    <div>
+    </div>
+
+    <!-- 性能分析（开发使用，实际游戏可以注释这部分源码） -->
+    <p>performance statistic:</p>
+    <table>
+      <tr>
+        <td></td>
+        <td>Now (ms)</td>
+        <td>Avg (ms)</td>
+      </tr>
+      <tr>
+        <td>FPS</td>
+        <td id="itemFPSNow"></td>
+        <td id="itemFPSAvg"></td>
+      </tr>
+      <tr>
+        <td>Game Logic</td>
+        <td id="itemGameNow"></td>
+        <td id="itemGameAvg"></td>
+      </tr>
+      <tr>
+        <td>APU</td>
+        <td id="itemAPUNow"></td>
+        <td id="itemAPUAvg"></td>
+      </tr>
+      <tr>
+        <td>PPU</td>
+        <td id="itemPPUNow"></td>
+        <td id="itemPPUAvg"></td>
+      </tr>
+      <tr>
+        <td>Render</td>
+        <td id="itemRenderNow"></td>
+        <td id="itemRenderAvg"></td>
+      </tr>
+    </table>
+    <script src="./js/smb-min.js"></script>
+    <script src="./js/ui.js"></script>
+  </body>
+
+</html>

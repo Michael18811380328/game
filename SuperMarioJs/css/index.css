@@ -1,0 +1,26 @@
+body {
+  font-family: monospace;
+  background-color: #eee;
+}
+
+#canvas:-webkit-full-screen {
+  height: 100vmin !important;
+  width: 106.67vmin !important;
+}
+
+#canvas {
+  margin-bottom: 20px;
+}
+
+#rangeSpeed {
+  width: 400px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  border: solid #999 1px;
+  padding: 2px 20px;
+}

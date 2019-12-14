@@ -1,0 +1,64 @@
+/* Tables */
+
+table td {
+	text-align: left;
+	vertical-align: middle;
+	padding: 10px;
+}
+
+table thead td,
+table tfoot td {
+	padding: 10px;
+}
+
+table tr.notify {
+	background-color: #f5c0c0;
+}
+
+table td.center {
+	text-align: center;
+}
+
+table td img {
+	vertical-align: middle;
+}
+
+table tbody tr:hover {
+	background-color: #ba8a65;
+	color: #fff;
+	opacity: 1;
+}
+
+table tr:hover td:first-child a {
+	color: #fff;
+}
+
+table tr td:last-child a {
+	border-radius: 3px;
+	padding: 4px 10px;
+	color: #fff !important;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: 12px;
+	display: inline-block;
+}
+
+table tr td a.disabled {
+	display: none;
+}
+
+table tr td.large {
+	width: 45%;
+}
+
+table tr td.medium {
+	width: 25%;
+}
+
+td a.btn {
+	width: 28px;
+	height: 28px;
+	padding: 0 !important;
+	border: 0 !important;
+	background-size: contain !important;
+}

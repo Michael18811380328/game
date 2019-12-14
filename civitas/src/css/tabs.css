@@ -1,0 +1,60 @@
+/* Tabs */
+
+.tabs > ul > li {
+	float: left;
+}
+
+.tabs > div {
+	border-top: 1px solid #ccc;
+}
+
+.tabs > ul > li > a {
+	color: #666;
+	text-decoration: none;
+	padding: 6px 8px;
+	display: block;
+}
+
+.ui-tabs-panel > p, 
+.ui-tabs-panel > div > p {
+	margin-top: 10px;
+}
+
+.tabs ul {
+	margin: 0 20px;
+}
+
+.tabs ul li.ui-tabs-active a {
+	color: #fff !important;
+}
+
+.ui-tabs-panel .contents {
+	max-height: 340px;
+	overflow: auto;
+}
+
+.ui-tabs-panel:after,
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+	content: "";
+	display: table;
+	border-collapse: collapse;
+}
+
+.ui-tabs-panel:after,
+.ui-helper-clearfix:after {
+	clear: both;
+}
+
+.ui-helper-clearfix {
+	min-height: 0;
+}
+
+.ui-tabs-panel {
+	position: relative;
+}
+
+.ui-tabs-panel > span {
+	display: inline-block;
+	padding: 4px 10px;
+}

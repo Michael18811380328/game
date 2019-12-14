@@ -1,0 +1,337 @@
+/* Windows */
+
+.window {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	color: #fff;
+	z-index: 99999;
+	background: #45484d;
+	background: radial-gradient(ellipse at center, #45484d 0%, #000 100%);
+}
+
+.window .logo {
+	margin: 3% auto 0 auto;
+	width: 300px;
+	text-align: center;
+	font-size: 62px;
+}
+
+.window fieldset > p {
+	font-size: 12px;
+}
+
+.window ul {
+	margin-left: 20px;
+}
+
+.window .about-game,
+.window .options-game {
+	position: relative;
+	display: none;
+	padding: 10px 0;
+	margin: 0;
+}
+
+.window li > a,
+.window p > a {
+	text-decoration: underline;
+}
+
+.window .ui-tabs-panel > div {
+	padding: 20px;
+}
+
+.window .tabs ul li a {
+	text-decoration: none;
+}
+
+.window .tabs ul li.ui-tabs-active {
+	background-color: #777;
+}
+
+.window .tabs > div {
+	border: 1px solid #777;
+}
+
+.window fieldset {
+	margin: 20px auto 0 auto;
+	width: 360px;
+	border: 0;
+}
+
+.window input[type=password],
+.window input[type=text],
+.window select {
+	border: 1px solid #908c68;
+	background: transparent;
+	color: #fff;
+	padding: 5px 10px;
+	font-size: 14px;
+}
+
+.window select option {
+	color: #000;
+}
+
+.window select {
+	width: 122px;
+}
+
+.window input[type=password],
+.window input[type=text] {
+	width: 100px;
+}
+
+.window .button {
+	display: block;
+	margin-top: 5px;
+	border-radius: 3px;
+	padding: 10px;
+	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+	color: #fff;
+	border: 1px solid #908c68;
+	background-color: #a9a588;
+	background-image: linear-gradient(to bottom, #a9a588, #8e865b);
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.window .button:hover {
+	border: 1px solid #767255;
+	background-color: #938e6b;
+	background-image: linear-gradient(to bottom, #938e6b, #6f6947);
+}
+
+.window .avatar-select {
+	width: 64px;
+	height: 64px;
+	overflow: hidden;
+	padding: 0;
+	margin: 0;
+}
+
+.window .avatar-select img {
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.window dt {
+	line-height: 28px;
+}
+
+.window dl {
+	width: 360px;
+}
+
+.window .avatar-select-container {
+	position: relative;
+}
+
+.window .avatar-select-container .scrollbar {
+	position: absolute;
+	right:40px;
+	top: 8px;
+}
+
+/* Battleground window */
+
+#window-battle .container {
+	width: 1040px;
+	position: relative;
+	margin: 40px auto 0 auto;
+}
+
+#window-battle .toolbar {
+	margin: 4px auto;
+	width: 100%;
+}
+
+#window-battle .battleground {
+	width: 990px; 
+	line-height: 1.3;
+	height: 520px;
+}
+
+#window-battle .attack,
+#window-battle .defense {
+	font-size: 12px;
+	position: absolute;
+	top: -32px;
+	background-color: #fff;
+	border-radius: 20px;
+	padding: 4px 10px;
+	color: #000;
+	z-index: 2;
+}
+
+#window-battle .attack {
+	left: 200px;
+}
+
+#window-battle .defense {
+	right: 200px;
+}
+
+#window-battle .status {
+	width: 480px;
+	height: 60px;
+	position: absolute;
+	bottom: -60px;
+	left: 22%;
+	border: 1px solid #ccc;
+	overflow: auto;
+	background-color: #fff;
+	padding: 20px;
+}
+
+#window-battle .battleground .cell img {
+	position: absolute;
+	top: 6px;
+	left: -8px;
+	transform: rotate(90deg);
+	display: block;
+	z-index:1;
+}
+
+#window-battle .battleground .cell .amount {
+	color: #fff;
+	position: absolute;
+	font-size: 10px;
+	right: 16px;
+	bottom: 2px;
+	background-color: #000;
+	border-radius: 100%;
+	transform: rotate(90deg);
+	padding: 4px;
+	z-index: 2;
+}
+
+#window-battle .turns {
+	font-size: 16px;
+	position: absolute;
+	top: -36px;
+	right: 49%;
+	background-color: #fff;
+	border-radius: 100%;
+	padding: 6px;
+	color: #000;
+	z-index: 2;
+}
+
+#window-battle .status p {
+	color: #444;
+	font-size: 10px;
+}
+
+.window .toolbar a {
+	border-radius: 3px;
+	padding: 10px;
+	text-transform: uppercase;
+	text-align: center;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 12px;
+}
+
+#window-battle .battleground .cell .moves {
+	width: 10px;
+	height: 10px;
+	display: block;
+	border-radius: 100%;
+	background-color: #c53636;
+	position: absolute;
+	top: 42px;
+	box-shadow: 0 0 2px #000;
+	right: 0;
+	z-index:2;
+}
+
+#window-battle .battleground .cell .moves.has {
+	background-color: #298719;
+}
+
+#window-battle .battleground ol {
+	margin-left: 20px;
+	padding: 0;
+}
+
+#window-battle .battleground ol.even {
+	position: relative;
+	left: 1.95em;
+}
+
+#window-battle .battleground ol.odd {
+	position: relative;
+	margin-top: -5.6%;
+	margin-bottom: -5.6%;
+}
+
+#window-battle .battleground .cell {
+	position: relative;
+	margin: 1em auto;
+	width: 2em;
+	height: 3.6em;
+	border-radius: 20em/1em;
+	background: transparent;
+	transform: rotate(-90deg);
+	display: inline-block;
+	opacity: 0.8;
+	margin-right: 1.94em;
+}
+
+#window-battle .battleground .cell:before,
+#window-battle .battleground .cell:after {
+	position: absolute;
+	width: inherit;
+	height: inherit;
+	border-radius: inherit;
+	background: inherit;
+	content: '';
+}
+
+#window-battle .battleground .cell:before {
+	transform: rotate(60deg);
+}
+
+#window-battle .battleground .cell:after {
+	transform: rotate(-60deg);
+}
+
+#window-battle .battleground .cell.empty,
+#window-battle .battleground .cell.selected,
+#window-battle .battleground .cell:hover {
+	background-color: #fff;
+}
+
+#window-battle .battleground .cell.empty {
+	opacity: 0.2;
+}
+
+#window-battle .battleground .cell.selected {
+	opacity: 1;
+}
+
+#window-battle .battleground .cell:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+
+#window-battle .battleground .cell.canattack {
+	background-color: #fe9466;
+	opacity: 0.4 !important;
+}
+
+#window-battle .battleground .cell.canmove {
+	background-color: #80bc50;
+	opacity: 0.4 !important;
+}
+
+#window-error .error-message,
+#window-error .error-code {
+	font-size: 12px;
+	color: #D25C70;
+}
