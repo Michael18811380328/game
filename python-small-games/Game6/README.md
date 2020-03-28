@@ -13,6 +13,3 @@ https://mp.weixin.qq.com/s/k4YaHbPfQOKi0nCvnLwvVg
 - pygame
 - random
 - sys
-
-# Game Display
-![giphy](effect/running.gif)

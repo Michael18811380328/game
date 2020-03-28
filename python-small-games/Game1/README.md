@@ -16,6 +16,3 @@ https://mp.weixin.qq.com/s/_-AChGldQzdwXN-ljcCMFQ
 
 # Reference
 https://www.raywenderlich.com/24252/beginning-game-programming-for-teens-with-python
-
-# Game Display
-![giphy](effect/running.gif)

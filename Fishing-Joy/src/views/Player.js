@@ -36,7 +36,7 @@ Player.prototype.init = function()
 	this.cannonMinus.y = game.bottom.y + 36;
 	this.cannonMinus.onEvent = function(e)
 	{
-		if(e.type == game.events[1])
+		if (e.type == game.events[1])
 		{
 			me.cannon.setPower(-1, true);
 		}
@@ -48,7 +48,7 @@ Player.prototype.init = function()
 	this.cannonPlus.y = this.cannonMinus.y;
 	this.cannonPlus.onEvent = function(e)
 	{
-		if(e.type == game.events[1])
+		if (e.type == game.events[1])
 		{
 			me.cannon.setPower(1, true);
 		}
@@ -62,16 +62,22 @@ Player.prototype.init = function()
 	game.stage.addChild(this.cannon, this.cannonMinus, this.cannonPlus, this.coinNum);
 };
 
-Player.prototype.fire = function(targetPoint)
-{	
+Player.prototype.fire = function(targetPoint) {
 	var cannon = this.cannon, power = cannon.power, speed = 5;
-	if(this.coin < power) return;
+	if (this.coin < power) return;
 	
 	//cannon fire
 	var dir = ns.Utils.calcDirection(cannon, targetPoint), degree = dir.degree;
-	if(degree == -90) degree = 0;
-	else if(degree < 0 && degree > -90) degree = -degree;
-	else if(degree >= 180 && degree <= 270) degree = 180 - degree;
+	if (degree == -90) {
+		degree = 0;
+	}
+	else if (degree < 0 && degree > -90) {
+		degree = -degree;
+	}
+	else if (degree >= 180 && degree <= 270) {
+		degree = 180 - degree;
+	}
+
 	cannon.fire(degree);
 	
 	//fire a bullet
@@ -89,17 +95,17 @@ Player.prototype.fire = function(targetPoint)
 	this.updateCoin(-power, true);
 }
 
-Player.prototype.captureFish = function(fish)
-{
+Player.prototype.captureFish = function(fish) {
 	this.updateCoin(fish.coin, true);
 	this.numCapturedFishes++;
 };
 
-Player.prototype.updateCoin = function(coin, increase)
-{
-	if(increase) this.coin += coin;
+Player.prototype.updateCoin = function(coin, increase){
+	if (increase) {
+		this.coin += coin;
+	}
 	else this.coin = coin;
-	if(this.coin > 999999) this.coin = 999999;
+	if (this.coin > 999999) this.coin = 999999;
 	this.coinNum.setValue(this.coin);
 };
 

@@ -50,7 +50,7 @@ game = {
   gameOver : function(){
     // 游戏有两种情况都会导致游戏结束：1.  小鸟落地  2. 小鸟碰撞柱子
     // 1. 小鸟落地
-    if(bird.top === 462){
+    if (bird.top === 462){
       alert('游戏结束');
 
       this.isGmaeOver = true;
@@ -67,7 +67,7 @@ game = {
       let px = p.left + (p.width/2);
       let py = p.top + (p.height/2);
       // 判断是否碰撞
-      if(Math.abs(bx - px) < (p.width + bird.width) / 2 && 
+      if (Math.abs(bx - px) < (p.width + bird.width) / 2 && 
         Math.abs(by - py) < (p.height + bird.height) / 2){
         alter('游戏结束');
         this.isGmaeOver = true;
@@ -94,7 +94,6 @@ skyBg.timer = getTimer(30, skyBg, function () {
   this.show();
 })
 
-
 // 大地对象
 landBg = {
   left: 0,
@@ -111,7 +110,6 @@ landBg.timer = getTimer(30, landBg, function () {
   this.show();
 })
 
-
 // 小鸟对象
 bird = {
   width : 33,
@@ -126,9 +124,9 @@ bird = {
   // 显示小鸟的方法：统一在 show 方法中显示小鸟的最终状态
   show : function(){
     // 根据图片的索引，来设置当前小鸟背景图的位置
-    if(this.wingIndex === 0){
+    if (this.wingIndex === 0){
       this.dom.style.backgroundPosition = '-8px -10px';
-    } else if(this.wingIndex === 1){
+    } else if (this.wingIndex === 1){
       this.dom.style.backgroundPosition = '-60px -10px';
     } else {
       this.dom.style.backgroundPosition = '-113px -10px';
@@ -138,10 +136,10 @@ bird = {
   },
   // 设置小鸟的 top 值
   setTop(newTop){
-    if(newTop < 0){
+    if (newTop < 0){
       newTop = 0;
     }
-    if(newTop > 462){
+    if (newTop > 462){
       newTop = 462;
     }
     this.top = newTop;
@@ -222,7 +220,7 @@ pipes.moveTimer = getTimer(30,pipes,function(){
   for(let i=0;i<this.all.length;i++){
     let p = this.all[i]; // 得到当前的柱子
     p.left -= 2;
-    if(p.left < -p.width){
+    if (p.left < -p.width){
       p.dom.remove();
       this.all.splice(i,1);
       i--;
@@ -230,25 +228,23 @@ pipes.moveTimer = getTimer(30,pipes,function(){
       p.dom.style.left = p.left + 'px';
     }
     //判断柱子是否过了小鸟，若过了则说明小鸟过了一根柱子
-    if(p.left<=(bird.left-pipes.width)){
+    if (p.left<=(bird.left-pipes.width)){
       console.log("+1"); 
     }
   }
   game.gameOver(); // 每次柱子移动后，都需要判断游戏是否结束
 });
 
-
-
 document.documentElement.onkeydown = function(e){
-  if(e.key === ' '){
+  if (e.key === ' '){
     bird.jump();
   }
-  if(e.key === 'Enter'){
+  if (e.key === 'Enter'){
     // 按下回车键后，有三种状态（游戏运行中，游戏暂停中，游戏已结束）
-    if(game.isGmaeOver){
+    if (game.isGmaeOver){
       location.reload();
     }
-    if(game.paused){
+    if (game.paused){
       game.start();
       game.paused = !game.paused
     } else {
