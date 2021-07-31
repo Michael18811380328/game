@@ -1,4 +1,5 @@
 # 小游戏使用说明
+
 下面是自己收藏或者改进的小游戏。
 
 如果对你有帮助，可以加一个小星星 :star: ，感谢你的支持！
@@ -9,8 +10,7 @@
 
 ## 声明
 
-这里的大多数游戏资料（包括代码、音乐、字体、图片等）都是从网络上收集的，版权归原始作者所有。
-创建此存储库仅用于学习和个人娱乐啦！
+这里的大多数游戏资料（包括代码、音乐、字体、图片等）都是从网络上收集的，仅用于学习和个人娱乐啦！
 
 ## 分类和简介
 
@@ -38,11 +38,7 @@
 
 Tower_game：城防游戏
 
-
-
 ### Python
-
-这部分需要本地安装 Python 开发环境（我本地有2.6和3的环境，你可以都试一下）
 
 [Minecraft-python](https://github.com/Michael18811380328/game/tree/master/Minecraft-python)：我的世界
 
@@ -50,27 +46,19 @@ Tower_game：城防游戏
 
 [python-small-games](https://github.com/Michael18811380328/game/tree/master/python-small-games)：小游戏
 
-
-
 ### Java
 
 这部分需要本地安装 JRE 开发环境。开发 Mod 请阅读社区详细教程。
 
-[Minecraft-java](https://github.com/Michael18811380328/game/tree/master/Minecraft-java)：我的世界
-
-
+[Minecraft-java](https://github.com/Michael18811380328/game/tree/master/Minecraft-java)：我的世界源码
 
 ### Typescript
 
 [SuperMarioTs](https://github.com/Michael18811380328/game/tree/master/SuperMarioTs)：超级玛丽
 
-
-
 ### CoffeeScript
 
-[codeCombat](https://github.com/codecombat/codecombat)：代码战争：这个游戏国外开发，现在被 NetEase 代理，我做过一点点国际化工作，通过这个游戏学习了简单的 python 和 JavaScript 知识（coffeeScript我不会）
-
-
+[codeCombat](https://github.com/codecombat/codecombat)：代码战争：这个游戏国外开发，现在被 NetEase 代理，我做过一点点工作，通过这个游戏学习了简单的 python 和 JavaScript
 
 ### Go
 
@@ -78,11 +66,8 @@ Tower_game：城防游戏
 
 [snake-go](https://github.com/Michael18811380328/game/tree/master/snake-go)：贪吃蛇
 
-
-
 Future
 
 [](https://github.com/Michael18811380328/game/tree/master/)
-
 
 
