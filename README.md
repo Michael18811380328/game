@@ -60,6 +60,8 @@ Tower_game：城防游戏
 
 [codeCombat](https://github.com/codecombat/codecombat)：代码战争：这个游戏国外开发，现在被 NetEase 代理，我做过一点点工作，通过这个游戏学习了简单的 python 和 JavaScript
 
+后续：网易收购后改名“网易极客战记”，将于 2021年12月31日停止运营，可惜啊，https://codecombat.163.com/#/
+
 ### Go
 
 这个是未来的发展趋势，现在我正在学习 Golang。
@@ -69,5 +71,3 @@ Tower_game：城防游戏
 Future
 
 [](https://github.com/Michael18811380328/game/tree/master/)
-
-
