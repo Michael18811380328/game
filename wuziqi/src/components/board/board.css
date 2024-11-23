@@ -1,0 +1,14 @@
+.board {
+  width: 400px;
+  height: 400px;
+  border: 3px solid #666;
+}
+.board .row {
+  height: 40px;
+  display: flex;
+}
+.board .row .column {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+}

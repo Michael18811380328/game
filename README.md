@@ -10,7 +10,7 @@
 
 ## 声明
 
-这里的大多数游戏资料（包括代码、音乐、字体、图片等）都是从网络上收集的，仅用于学习和个人娱乐啦！
+这里的大多数游戏资料（包括代码、音乐、字体、图片等）都是从网络上收集的，仅用于学习和个人娱乐
 
 ## 分类和简介
 
@@ -36,6 +36,8 @@
 
 [minesweeper](https://github.com/Michael18811380328/game/tree/master/minesweeper)：黄金矿工
 
+[wuziqi](https://github.com/Michael18811380328/game/tree/master/wuziqi)：五子棋
+
 Tower_game：城防游戏
 
 ### Python
@@ -58,16 +60,10 @@ Tower_game：城防游戏
 
 ### CoffeeScript
 
-[codeCombat](https://github.com/codecombat/codecombat)：代码战争：这个游戏国外开发，现在被 NetEase 代理，我做过一点点工作，通过这个游戏学习了简单的 python 和 JavaScript
-
-后续：网易收购后改名“网易极客战记”，将于 2021年12月31日停止运营，可惜啊，https://codecombat.163.com/#/
+[codeCombat](https://github.com/codecombat/codecombat)：代码战争：这个游戏国外开发，现在被 NetEase 代理，我做过一点工作，通过这个游戏学习了简单的 python 和 JavaScript，后续：网易收购后改名“网易极客战记”，国内版本已经于 2021年12月31日 停止运营（https://codecombat.163.com/#/）
 
 ### Go
 
-这个是未来的发展趋势，现在我正在学习 Golang。
+这个是未来的发展趋势
 
 [snake-go](https://github.com/Michael18811380328/game/tree/master/snake-go)：贪吃蛇
-
-Future
-
-[](https://github.com/Michael18811380328/game/tree/master/)

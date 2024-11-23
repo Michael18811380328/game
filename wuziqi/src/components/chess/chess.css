@@ -1,0 +1,29 @@
+.chess {
+  position: absolute;
+  top: 24px;
+  left: 23px;
+}
+.chess .row {
+  height: 40px;
+  display: flex;
+}
+.chess .row .column {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.chess .row .column .position {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+.chess .row .column .position-black {
+  background-color: #333;
+}
+.chess .row .column .position-white {
+  border: 1px solid #333;
+  background-color: #ffffff;
+}

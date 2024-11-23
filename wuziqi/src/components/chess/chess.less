@@ -1,0 +1,29 @@
+.chess {
+  position: absolute;
+  top: 24px;
+  left: 23px;
+  .row {
+    height: 40px;
+    display: flex;
+    .column {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      .position {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+      }
+      .position-black {
+        background-color: #333;
+      }
+      .position-white {
+        border: 1px solid #333;
+        background-color: #ffffff;
+      }
+    }
+  }
+}
