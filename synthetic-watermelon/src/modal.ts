@@ -1,6 +1,6 @@
 var gameModal = gameModal || {};
 
-gameModal = function (game:any) {
+gameModal = function (game: any) {
 
     var _this = this;
 
@@ -49,7 +49,7 @@ gameModal = function (game:any) {
                     innerModal.width = game.game.config.width;
                     innerModal.height = game.game.config.height;
                     innerModal.type = type;
-                    innerModal.on('pointerdown',(e)=>{
+                    innerModal.on('pointerdown', (e) => {
                         console.log(e)
                         this.hideModal(e.type);
                     })

@@ -20,7 +20,7 @@ const DIRECTION = Object.freeze({
 function Cell(row, column, cellType) {
   return {
     row: row,
-    column: column, 
+    column: column,
     cellType: cellType
   }
 }
@@ -38,19 +38,19 @@ function Snake(cell, startingLength, board) {
   snakeParts.push(head);
 
   // 获取蛇的初始长度，获取身体的部分（一个竖行），把身体的部分设置成蛇属性，并放在蛇的身体里
-  for(let i = 0; i < startingLength - 1; i++) {
+  for (let i = 0; i < startingLength - 1; i++) {
     let bodyPart = board.cells[head.row + (i + 1)][head.column];
     bodyPart.cellType = CELL_TYPE.SNAKE;
-    snakeParts.push( bodyPart )
+    snakeParts.push(bodyPart)
   }
 
   // 生长：将这个单元格放入蛇的身体里
-  let grow = function() {
+  let grow = function () {
     snakeParts.push(head);
   }
 
   // 移动函数
-  let move = function(nextCell) {
+  let move = function (nextCell) {
     // 获取下一个单元格的属性
     let cellType = nextCell.cellType;
     // 获取蛇尾，同时蛇身体减去1
@@ -63,7 +63,7 @@ function Snake(cell, startingLength, board) {
     head.cellType = CELL_TYPE.SNAKE;
     snakeParts.unshift(head);
     // 蛇的中间每一个部分的属性设置为蛇
-    snakeParts.forEach(function(part) {
+    snakeParts.forEach(function (part) {
       part.cellType = CELL_TYPE.SNAKE;
     });
     // 把下一个单元格的属性返回（下一个属性可能是食物、蛇身体、边界、或者空）
@@ -71,11 +71,11 @@ function Snake(cell, startingLength, board) {
   }
 
   // 检查崩溃（游戏结束）
-  let checkCrash = function(nextCell) {
+  let checkCrash = function (nextCell) {
     // 如果下一个节点是未定义（边界），崩溃
-    let crashed = ( typeof nextCell === 'undefined' );
-    if( !crashed ) {
-      crashed = snakeParts.some(function(cell) {
+    let crashed = (typeof nextCell === 'undefined');
+    if (!crashed) {
+      crashed = snakeParts.some(function (cell) {
         // 如果下一个单元格是蛇身体的一部分（行列号相同），判断崩溃
         return (cell.row === nextCell.row && cell.column === nextCell.column);
       });
@@ -85,7 +85,7 @@ function Snake(cell, startingLength, board) {
   }
 
   // API：返回蛇头（当前传入的单元格）
-  let getHead = function() {
+  let getHead = function () {
     return head;
   }
 
@@ -105,32 +105,32 @@ function Board(rowCount, columnCount) {
   let cells = Array.from(Array(rowCount), () => new Array(columnCount));
 
   // 把数组的每一项设置成一个Cell对象
-  for( let row = 0; row < rowCount; row++ ) {
-    for( let column = 0; column < columnCount; column++ ) {
+  for (let row = 0; row < rowCount; row++) {
+    for (let column = 0; column < columnCount; column++) {
       cells[row][column] = Cell(row, column, CELL_TYPE.EMPTY);
     }
   }
 
   // 渲染函数（设置食物单元格和蛇单元格的类名样式）
-  let render = function() {
+  let render = function () {
     let snakeCssClass = 'snake';
     let foodCssClass = 'food';
-    for(let row = 0; row < rowCount; row++) {
-      for(let column = 0; column < columnCount; column++) {
+    for (let row = 0; row < rowCount; row++) {
+      for (let column = 0; column < columnCount; column++) {
         // 获取每一个cell的类型
         let cellType = cells[row][column].cellType;
         // 获取界面上Cell对应的DOM元素
-        let element = document.getElementById( row + "_" + column );
+        let element = document.getElementById(row + "_" + column);
         // 根据cell不同，设置界面DOM节点类名（是否是蛇，是否是食物）这里直接改变DOM元素（遍历一次改变类名，性能）
-        if( cellType === CELL_TYPE.EMPTY ) {
+        if (cellType === CELL_TYPE.EMPTY) {
           element.classList.remove(snakeCssClass);
           element.classList.remove(foodCssClass);
         }
-        else if( cellType === CELL_TYPE.SNAKE ) {
+        else if (cellType === CELL_TYPE.SNAKE) {
           element.classList.add(snakeCssClass);
           element.classList.remove(foodCssClass);
         }
-        else if( cellType === CELL_TYPE.FOOD ) {
+        else if (cellType === CELL_TYPE.FOOD) {
           element.classList.add(foodCssClass);
           element.classList.remove(snakeCssClass);
         }
@@ -139,7 +139,7 @@ function Board(rowCount, columnCount) {
   }
 
   // 放置食物
-  let placeFood = function() {
+  let placeFood = function () {
     // 获取可以放置食物的单元格数组
     let availableCells = getAvailableCells();
     // 获取一个随机整数（小于食物单元格的数量），并将对应的单元格设置为食物；
@@ -151,7 +151,7 @@ function Board(rowCount, columnCount) {
   }
 
   // 获取可以放置食物的单元格数组：遍历二维数组，如果单元格是空的，返回这个单元格
-  let getAvailableCells = function() {
+  let getAvailableCells = function () {
     let availableCells = [];
     for (let row = 0; row < rowCount; row++) {
       for (let column = 0; column < columnCount; column++) {
@@ -164,12 +164,12 @@ function Board(rowCount, columnCount) {
   }
 
   // API 获取列数量（外部暴露属性）
-  let getColumnCount = function() {
+  let getColumnCount = function () {
     return columnCount;
   }
 
   // 获取行数量
-  let getRowCount = function() {
+  let getRowCount = function () {
     return rowCount;
   }
 
@@ -180,12 +180,12 @@ function Board(rowCount, columnCount) {
     cells: cells,
     placeFood: placeFood,
     render: render
-  } 
+  }
 }
 
 // 获取两个数之间的随机整数（
 function getRandomInteger(min, max) {
-  return Math.floor(Math.random() * ( max - min )) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 // 主函数
@@ -197,7 +197,7 @@ function Game(snake, board) {
   let score = 0;
 
   // 更新
-  let update = function(snake, board) {
+  let update = function (snake, board) {
     // 如果游戏没有结束并且第一个单元格不是 none
     if (!gameOver && getFirstDirection() !== DIRECTION.NONE) {
       // 获取下一个单元格
@@ -226,7 +226,7 @@ function Game(snake, board) {
   };
 
   // 获取下一个单元格（传入蛇头和界面背景）
-  let getNextCell = function(snakeHead, board) {
+  let getNextCell = function (snakeHead, board) {
     // 获取蛇头的行列
     let row = snakeHead.row;
     let column = snakeHead.column;
@@ -258,12 +258,12 @@ function Game(snake, board) {
   };
 
   // 增加方向（将新的方向放在列表中）
-  let addDirection = function(newDirection){
+  let addDirection = function (newDirection) {
     directions.push(newDirection);
   }
 
   // 获取第一个方向（如果长度大于0，那么返回第一个长度，否则返回Direction 就是none）
-  let getFirstDirection = function() {
+  let getFirstDirection = function () {
     let result = direction;
     if (directions.length > 0) {
       result = directions[0];
@@ -272,16 +272,16 @@ function Game(snake, board) {
   }
 
   // 获取最后一个方向
-  let getLastDirection = function() {
+  let getLastDirection = function () {
     let result = direction;
-    if (directions.length > 0){
+    if (directions.length > 0) {
       result = directions[directions.length - 1];
     }
     return result;
   }
 
   // 获取超出最大距离的方向（如果当前数组的长度大于3，就是true ）
-  let exceededMaxDirections = function() {
+  let exceededMaxDirections = function () {
     return directions.length > 3;
   }
 
@@ -300,7 +300,7 @@ function initializeCells(columnCount) {
   let column = 0;
   let cells = document.querySelectorAll('.cell');
   // 获取全部的单元格
-  cells.forEach(function(cell) {
+  cells.forEach(function (cell) {
     cell.id = row + "_" + column;
     cell.classList = "";
     cell.classList.add("cell");
@@ -319,18 +319,18 @@ function initializeCells(columnCount) {
 function listenForInput(game) {
   let firstTime = true;
 
-  let movingVertically = function() {
+  let movingVertically = function () {
     // 上一次的操作是垂直操作（不是左右），并且游戏没有超出最大的方向
     return !game.exceededMaxDirections() && game.getLastDirection() !== DIRECTION.RIGHT && game.getLastDirection() !== DIRECTION.LEFT;
   };
-  let movingHorizontally = function() {
+  let movingHorizontally = function () {
     // 上一次的操作是水平操作（不是上下），并且游戏没有超出最大的方向
     return !game.exceededMaxDirections() && game.getLastDirection() !== DIRECTION.UP && game.getLastDirection() !== DIRECTION.DOWN;
   };
-  let changeDirection = function(event) {
+  let changeDirection = function (event) {
     // 首次加载时，向上运动（这个参数可以变成其他方向）
-    if( firstTime ) {
-      game.addDirection( DIRECTION.UP );
+    if (firstTime) {
+      game.addDirection(DIRECTION.UP);
       firstTime = false;
     } else {
       const LEFT_ARROW = 37;
@@ -339,14 +339,14 @@ function listenForInput(game) {
       const DOWN_ARROW = 40;
       // 如果点击左右键，并且最近一次操作不是左右操作，那么左转弯
       // update 使用键盘的 asdw 也可以改变方向（针对于笔记本电脑上下左右不好用的情况，或者让用户自定义操作键）
-      if( event.keyCode == LEFT_ARROW && movingVertically() ) {
-        game.addDirection( DIRECTION.LEFT );
-      } else if( event.keyCode == RIGHT_ARROW && movingVertically() ) {
-        game.addDirection( DIRECTION.RIGHT );
-      } else if( event.keyCode == UP_ARROW && movingHorizontally() ) {
-        game.addDirection( DIRECTION.UP );
-      } else if( event.keyCode == DOWN_ARROW && movingHorizontally() ) {
-        game.addDirection( DIRECTION.DOWN );
+      if (event.keyCode == LEFT_ARROW && movingVertically()) {
+        game.addDirection(DIRECTION.LEFT);
+      } else if (event.keyCode == RIGHT_ARROW && movingVertically()) {
+        game.addDirection(DIRECTION.RIGHT);
+      } else if (event.keyCode == UP_ARROW && movingHorizontally()) {
+        game.addDirection(DIRECTION.UP);
+      } else if (event.keyCode == DOWN_ARROW && movingHorizontally()) {
+        game.addDirection(DIRECTION.DOWN);
       }
     }
   };
@@ -365,10 +365,10 @@ function newGame() {
   let board = Board(rowCount, columnCount);
 
   // 获取面板中间的单元格作为开始单元格
-  let rowIndex = Math.floor(rowCount/2);
-  let columnIndex = Math.floor(columnCount/2);
+  let rowIndex = Math.floor(rowCount / 2);
+  let columnIndex = Math.floor(columnCount / 2);
   // 创建蛇（根据开始单元格、开始长度、面板参数）
-  let snake = Snake( board.cells[rowIndex][columnIndex], startingLength, board );
+  let snake = Snake(board.cells[rowIndex][columnIndex], startingLength, board);
 
   // 创建游戏
   let game = Game(snake, board);
@@ -386,7 +386,7 @@ function newGame() {
   listenForInput(game);
 
   // 设置间隔，每200ms更新一次界面（可以自定义更新速度，根据蛇的长度，或者用户自定义难度）
-  let interval = setInterval(function() { 
+  let interval = setInterval(function () {
     game.update(snake, board);
     board.render();
   }, 200);
@@ -399,7 +399,7 @@ let modal = document.getElementById("modal");
 // 获取关闭对话框关闭按钮
 let closeModalButton = document.getElementsByClassName("close")[0];
 // 点击关闭对话框，就开始新的游戏
-closeModalButton.onclick = function() {
+closeModalButton.onclick = function () {
   modal.style.display = "none";
   clearInterval(snakeGame);
   snakeGame = newGame();

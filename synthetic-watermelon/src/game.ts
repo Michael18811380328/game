@@ -15,7 +15,7 @@ class Demo extends Phaser.Scene {
     private gameModal: any = new Map()
     private particles: any = new Map()
     private soundList: any = new Map()
-    
+
     constructor() {
         super('demo');
     }
@@ -67,18 +67,18 @@ class Demo extends Phaser.Scene {
         // 果汁粒子
         const juiceColor = [0x701167, 0xff0925, 0xfe6f01, 0xffc002, 0x5ddf20, 0xe61933, 0xf69a61, 0xffdd3c, 0xfffaea, 0xfc7b96]
 
-        for(let i = 0; i < juiceColor.length; i++) {
+        for (let i = 0; i < juiceColor.length; i++) {
             const graphics = this.make.graphics({ x: 0, y: 0 }, false);
-            const key = 'juice'+(i+1)
+            const key = 'juice' + (i + 1)
             graphics.fillStyle(juiceColor[i], 1);
             graphics.fillCircle(20, 20, 20); // x,y,radius 创建一个圆形
             graphics.setScale(scale)
-            graphics.generateTexture(key, 40*scale, 40*scale); // 图宽度高度
+            graphics.generateTexture(key, 40 * scale, 40 * scale); // 图宽度高度
             let juiceParticles = this.add.particles(0, 0, key)
             juiceParticles.setDepth(10)
             this.particles.set(key, juiceParticles)
         }
-        
+
         // 成功的粒子
         this.particles.set('success', this.add.particles(0, 0, 'success', {
             emitting: false,
@@ -94,7 +94,7 @@ class Demo extends Phaser.Scene {
             scale: { start: 0.5, end: 0.8 },
             // blendMode: 'ADD'
         }))
-        
+
         // 设置物理效果
         this.matter.add.gameObject(endLineSprite, {
             label: 'endLine',
@@ -103,10 +103,10 @@ class Demo extends Phaser.Scene {
             // 传感器模式，可以检测到碰撞，但是不会对物体产品效果
             isSensor: true,
             // 物体碰撞回调,
-            onCollideActiveCallback: (e,body) => {
-                if(this.isOver) return
+            onCollideActiveCallback: (e, body) => {
+                if (this.isOver) return
                 let inBody = e.bodyA.velocity.y === 0 ? e.bodyB : e.bodyA // 获取下落水果
-                if(inBody.gameObject.getData('callOnce') === true) return // 如果没碰撞过地面或水果 就是刚下落的水果 直接return
+                if (inBody.gameObject.getData('callOnce') === true) return // 如果没碰撞过地面或水果 就是刚下落的水果 直接return
                 // let vA = e.bodyA.velocity.y
                 // let vB = e.bodyB.velocity.y
                 // 1秒内触发50次碰撞才结束游戏 
@@ -115,11 +115,11 @@ class Demo extends Phaser.Scene {
                 let lastCollideTime = endLineSprite.getData('lastCollideTime')
                 let collideNum = endLineSprite.getData('collideNum')
 
-                if(time - lastCollideTime > 1000){
+                if (time - lastCollideTime > 1000) {
                     endLineSprite.setData('lastCollideTime', time)
                     endLineSprite.setData('collideNum', 0)
                 } else {
-                    if(collideNum > 50){
+                    if (collideNum > 50) {
                         // 游戏结束
                         this.events.emit('endGame')
                     } else {
@@ -167,24 +167,24 @@ class Demo extends Phaser.Scene {
                 // onComplete: () => {}
             })
         })
-        
+
         this.input.on('pointermove', (point: Phaser.Types.Math.Vector2Like) => {
-            if(!isDragStart) return
-            if(!enablePointer) return
-            if(fruitTween) {
+            if (!isDragStart) return
+            if (!enablePointer) return
+            if (fruitTween) {
                 fruitTween.destroy()
             }
-            if(fruit) fruit.x = point.x
+            if (fruit) fruit.x = point.x
         })
 
         const pointerupHandle = (point: Phaser.Types.Math.Vector2Like) => {
-            
-            if(!isDragStart) return
-            if(!enablePointer) return
+
+            if (!isDragStart) return
+            if (!enablePointer) return
             isDragStart = false
             enablePointer = false
 
-            if(fruitTween) {
+            if (fruitTween) {
                 fruitTween.destroy()
             }
             let size = fruit.width / 2 * scale
@@ -192,7 +192,7 @@ class Demo extends Phaser.Scene {
 
             fruit.setAwake()
             fruit.setStatic(false)
-            
+
             setTimeout(() => {
                 fruit = this.createFruit(x, y, true)
                 enablePointer = true
@@ -207,7 +207,7 @@ class Demo extends Phaser.Scene {
                 const { bodyA, bodyB } = pair
                 const same = bodyA.label === bodyB.label && bodyA.label !== '11'
                 const live = !bodyA.isStatic && !bodyB.isStatic
-                
+
                 if (same && live) {
                     if (bodyA.label === '10') {
                         this.events.emit('success')
@@ -227,14 +227,14 @@ class Demo extends Phaser.Scene {
                     this.soundList.get('合成').play()
                 }
                 const has = bodyA.label !== 'endLine' && bodyB.label !== 'endLine'
-                if(has && bodyB.gameObject && bodyB.gameObject.getData('callOnce') === true){
+                if (has && bodyB.gameObject && bodyB.gameObject.getData('callOnce') === true) {
                     bodyB.gameObject.setData('callOnce', false)
                     this.soundList.get('down').play() // { volume: 2 }
-                }else if(has && bodyA.gameObject && bodyA.gameObject.getData('callOnce') === true){
+                } else if (has && bodyA.gameObject && bodyA.gameObject.getData('callOnce') === true) {
                     bodyA.gameObject.setData('callOnce', false)
                     this.soundList.get('down').play()
                 }
-                
+
             })
         }
         //碰撞事件
@@ -260,7 +260,7 @@ class Demo extends Phaser.Scene {
             label = `${Phaser.Math.Between(1, this.randomLevel)}`
         }
         // const fruitWidth = this.textures.get(label).getSourceImage().width
-        const fruit = this.matter.add.image(x, y, label, null, 
+        const fruit = this.matter.add.image(x, y, label, null,
             // {
             //     shape: {
             //         type: 'circle',
@@ -274,7 +274,7 @@ class Demo extends Phaser.Scene {
         fruit.setBody({
             type: 'circle',
             radius: (fruit.width / 2)
-        },{
+        }, {
             label,
             restitution: 0.3, // 0.3, // 反弹
             friction: 0.1, // 0.1, // 摩擦系数
@@ -298,10 +298,10 @@ class Demo extends Phaser.Scene {
             ease: 'Back',
             // 水果合并时 easeParams值太高 会导致击飞旁边的水果 甚至撞击警戒线 导致游戏提前结束，设置为0后 Back效果消失 
             // 可在这个链接测试 easeParams参数效果 https://labs.phaser.io/edit.html?src=src/tweens\eases\back.js
-            easeParams: [isStatic ? 3.5 : 0], 
+            easeParams: [isStatic ? 3.5 : 0],
             duration: 200
         })
-        
+
         return fruit
     }
     onCompose(bodyA, bodyB) {
@@ -315,7 +315,7 @@ class Demo extends Phaser.Scene {
         bodyB.destroy()
         bodyA.destroy()
         this.createFruit(x, y, false, `${label + 1}`)
-        
+
         // 爆汁动画
         this.createJuiceParticles(x, y, size, `${label}`)
 
@@ -330,7 +330,7 @@ class Demo extends Phaser.Scene {
             this.randomLevel = 5 + add
         }
         this.scoreText.setText(this.score)
-        !this.isOver && API.event.onMessage && API.event.onMessage({code: 'score', data: {score: this.score, label}})
+        !this.isOver && API.event.onMessage && API.event.onMessage({ code: 'score', data: { score: this.score, label } })
 
     }
     restart() {
@@ -339,12 +339,12 @@ class Demo extends Phaser.Scene {
         this.randomLevel = 5
         this.isOver = false
     }
-    setAudioMute(isMute: boolean){
+    setAudioMute(isMute: boolean) {
         this.soundList.get('down').setMute(isMute)
         this.soundList.get('合成').setMute(isMute)
     }
     // 爆汁
-    createJuiceParticles(x: number, y: number, size: number, label: string,) { 
+    createJuiceParticles(x: number, y: number, size: number, label: string,) {
         // 粒子
         const positionReg = size * scale / 2
         const scaleReg = Math.min(1, size / 408) // 水果越小 粒子越小
@@ -352,15 +352,15 @@ class Demo extends Phaser.Scene {
         p.setConfig({
             emitting: false,
             // maxParticles: 20, 
-            x: { min: x-positionReg, max: x+positionReg },
-            y: { min: y-positionReg, max: y+positionReg },
+            x: { min: x - positionReg, max: x + positionReg },
+            y: { min: y - positionReg, max: y + positionReg },
             speed: { min: 10, max: 50 },
             gravityY: 0, // 重力
             lifespan: 3000 * scaleReg + 1000, // 生命 毫秒 最小1000  最大4000秒
             quantity: 2, // 数量每帧
 
             scale: { start: 1 * scaleReg, end: 0.1, random: true },
-            alpha: {  start: 0.8, end: 0, random: true},
+            alpha: { start: 0.8, end: 0, random: true },
         })
         p.emitParticle(50)
 
@@ -386,7 +386,7 @@ class Demo extends Phaser.Scene {
                 //     scale: { value: 0.5, duration: 1000 },
                 //     y: { value: 100, duration: 750, ease: '' }
                 // },
-               
+
             ],
             onComplete: () => {
                 image.destroy()
@@ -400,8 +400,8 @@ class Demo extends Phaser.Scene {
 let game = null
 
 export default {
-    init({ debug = false, cdn = '', parent, scale = 1, backgroundColor = '#ffe8a3', transparent = false, event }){
-        if(game) {
+    init({ debug = false, cdn = '', parent, scale = 1, backgroundColor = '#ffe8a3', transparent = false, event }) {
+        if (game) {
             console.log('init 函数只能执行一次')
             return
         }
@@ -411,9 +411,9 @@ export default {
         API.scale = scale
         API.backgroundColor = backgroundColor
         API.transparent = transparent
-        if(event){
-            for(let name in API.event){
-                if(event[name]) API.event[name] = event[name]
+        if (event) {
+            for (let name in API.event) {
+                if (event[name]) API.event[name] = event[name]
             }
         }
 
@@ -432,7 +432,7 @@ export default {
                 default: 'matter',
                 matter: {
                     enableSleeping: true,
-                    gravity:{ 
+                    gravity: {
                         x: 0,
                         y: 3
                     },
@@ -446,10 +446,10 @@ export default {
 
     },
     // 如果结束页面不需要集成在游戏代码内 ，可通过onRestart来重置游戏
-    onRestart(){
+    onRestart() {
         game.scene.scenes[1].restart()
     },
-    setAudioMute(isMute: boolean){
+    setAudioMute(isMute: boolean) {
         game.scene.scenes[1].setAudioMute(isMute)
     }
 }

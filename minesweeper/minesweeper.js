@@ -28,12 +28,12 @@ function Board(boardSize, mineCount) {
   return board;
 }
 
-var initializeCells = function(boardSize) {
+var initializeCells = function (boardSize) {
   // 初始化单元格（传入棋盘尺寸）
   var row = 0;
   var column = 0;
   // 获取每一个单元格
-  $(".cell").each(function() {
+  $(".cell").each(function () {
     // 设置属性、颜色、文字、背景颜色
     $(this).attr("id", row + "" + column).css('color', 'black').text("");
     $('#' + row + "" + column).css('background-image',
@@ -45,7 +45,7 @@ var initializeCells = function(boardSize) {
       row++;
     }
 
-    $(this).off().click(function(e) {
+    $(this).off().click(function (e) {
       // 处理点击事件
       handleClick($(this).attr("id"));
       var isVictory = true;
@@ -65,14 +65,14 @@ var initializeCells = function(boardSize) {
         clearInterval(timeout);
       }
     });
-    $(this).contextmenu(function(e) {
+    $(this).contextmenu(function (e) {
       handleRightClick($(this).attr("id"));
       return false;
     });
   })
 }
 
-var handleClick = function(id) {
+var handleClick = function (id) {
   // 处理点击事件，区分是否按下ctrl
   if (gameOver) return;
   if (ctrlIsPressed) {
@@ -82,14 +82,14 @@ var handleClick = function(id) {
   }
 }
 
-var handleNoCtrlClick = function(id) {
+var handleNoCtrlClick = function (id) {
   // 根据ID获取cell对象和对应的DOM元素
   var cell = board[id];
   var $cell = $('#' + id);
   // 如果单元格已经打开或者标注旗，return
   if (cell.opened) return;
   if (cell.flagged) return;
-  
+
   if (cell.mined) {
     // 如果点击的单元格是雷，游戏结束，所有雷区的颜色改成红色
     loss();
@@ -118,7 +118,7 @@ var handleNoCtrlClick = function(id) {
   }
 }
 
-var handleCtrlClick = function(id) {
+var handleCtrlClick = function (id) {
   // 按下ctrl点击单元格（打开这个单元格周边的全部单元格）；
   var cell = board[id];
   var $cell = $('#' + id);
@@ -162,7 +162,7 @@ var handleCtrlClick = function(id) {
   }
 }
 
-var handleRightClick = function(id) {
+var handleRightClick = function (id) {
   if (gameOver) return;
   var cell = board[id];
   var $cell = $('#' + id);
@@ -183,7 +183,7 @@ var handleRightClick = function(id) {
   $('#mines-remaining').text(minesRemaining);
 }
 
-var loss = function() {
+var loss = function () {
   // 单击雷单元格，游戏结束
   gameOver = true;
   // 改变信息栏的文本和颜色
@@ -200,7 +200,7 @@ var loss = function() {
   clearInterval(timeout);
 }
 
-var randomlyAssignMines = function(board, mineCount) {
+var randomlyAssignMines = function (board, mineCount) {
   // 随机布雷函数，设置空的雷区数组
   var mineCooridinates = [];
   for (var i = 0; i < mineCount; i++) {
@@ -223,7 +223,7 @@ var randomlyAssignMines = function(board, mineCount) {
   return board;
 }
 
-var calculateNeighborMineCounts = function(board, boardSize) {
+var calculateNeighborMineCounts = function (board, boardSize) {
   // 计算相邻的雷的数量
   var cell;
   var neighborMineCount = 0;
@@ -248,7 +248,7 @@ var calculateNeighborMineCounts = function(board, boardSize) {
   return board;
 }
 
-var getNeighbors = function(id) {
+var getNeighbors = function (id) {
   // 获取一个单元格相邻八个单元格
   var row = parseInt(id[0]);
   var column = parseInt(id[1]);
@@ -274,7 +274,7 @@ var getNeighbors = function(id) {
   return neighbors
 }
 
-var getNumberColor = function(number) {
+var getNumberColor = function (number) {
   // 根据雷的数量获取不同的颜色
   var color = 'black';
   if (number === 1) {
@@ -291,7 +291,7 @@ var getNumberColor = function(number) {
 }
 
 // 获取某个单元格是否是雷（可以优化）
-var isMined = function(board, id) {
+var isMined = function (board, id) {
   var cell = board[id];
   var mined = 0;
   if (typeof cell !== 'undefined') {
@@ -301,11 +301,11 @@ var isMined = function(board, id) {
 }
 
 // 获取随机的整数（工具函数）
-var getRandomInteger = function(min, max) {
+var getRandomInteger = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-var newGame = function(boardSize, mines) {
+var newGame = function (boardSize, mines) {
   // 游戏初始化，设置文字和颜色
   $('#time').text("0");
   $('#messageBox').text('Start sweep mine and this is MC').css({
@@ -320,7 +320,7 @@ var newGame = function(boardSize, mines) {
   timer = 0;
   // 设置计时器并显示时间
   clearInterval(timeout);
-  timeout = setInterval(function() {
+  timeout = setInterval(function () {
     // This will be executed after 1,000 milliseconds
     timer++;
     if (timer >= 999) {
@@ -340,17 +340,17 @@ var timeout;
 var minesRemaining;
 
 // 监听是都按下ctrl键
-$(document).keydown(function(event) {
+$(document).keydown(function (event) {
   if (event.ctrlKey)
     ctrlIsPressed = true;
 });
-$(document).keyup(function() {
+$(document).keyup(function () {
   ctrlIsPressed = false;
 });
 var ctrlIsPressed = false;
 var board = newGame(boardSize, mines);
 
 // 点击开始新的游戏
-$('#new-game-button').click(function() {
+$('#new-game-button').click(function () {
   board = newGame(boardSize, mines);
 })
