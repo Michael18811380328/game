@@ -58,6 +58,8 @@ Tower_game：城防游戏
 
 [SuperMarioTs](https://github.com/Michael18811380328/game/tree/master/SuperMarioTs)：超级玛丽
 
+[synthetic-watermelon](https://github.com/Michael18811380328/game/tree/master/synthetic-watermelon)：合成西瓜
+
 ### CoffeeScript
 
 [codeCombat](https://github.com/codecombat/codecombat)：代码战争：这个游戏国外开发，现在被 NetEase 代理，我做过一点工作，通过这个游戏学习了简单的 python 和 JavaScript，后续：网易收购后改名“网易极客战记”，国内版本已经于 2021年12月31日 停止运营（https://codecombat.163.com/#/）
