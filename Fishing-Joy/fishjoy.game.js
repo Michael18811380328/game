@@ -3169,7 +3169,7 @@
         };
     Q.inherit(b, Q.Bitmap);
     b.prototype.update = function() {
-        this.isOutOfScreen() ? this.destory() : (this.x += this.speedX, this.y -= this.speedY, this.checkCollision() && this.destory())
+        this.isOutOfScreen() ? this.destroy() : (this.x += this.speedX, this.y -= this.speedY, this.checkCollision() && this.destroy())
     };
     b.prototype.checkCollision = function() {
         for (var b = a.fishManager.fishes, d = b.length, h = !1, i = 0; i < d; i++) {
@@ -3203,7 +3203,7 @@
                 0.5 || f.y + f.height * 0.5 < g.y - g.height * 0.5 || f.x - f.width * 0.5 > g.x + g.width * 0.5 || f.x + f.width * 0.5 < g.x - g.width * 0.5) && f.hitTestObject(g, !0) && g.canBeCaptured(this.power - 1)) g.moving = !1, g.captured = !0, g.capturingCounter = a.fps >> 1, g.gotoAndPlay("capture");
         return !0
     };
-    b.prototype.destory = function() {
+    b.prototype.destroy = function() {
         this.parent.removeChild(this)
     };
     b.prototype.isOutOfScreen = function() {

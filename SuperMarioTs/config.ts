@@ -6,9 +6,9 @@ requirejs.config({
     // "jquery": "https://code.jquery.com/jquery-3.3.1.min",
     // },
     urlArgs: function (id, url) {
-        var rando = Math.floor(Math.random() * 100000);
+        var random = Math.floor(Math.random() * 100000);
         var args = '';
-        args = '?v=' + rando;
+        args = '?v=' + random;
         return args;
     }
 });

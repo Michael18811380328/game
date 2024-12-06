@@ -18,12 +18,12 @@ Bullet.prototype.update = function(timeInfo)
 {	
 	if(this.isOutOfScreen())
 	{
-		this.destory();
+		this.destroy();
 	}else
 	{
 		this.x += this.speedX;
 		this.y -= this.speedY;	
-		if(this.checkCollision()) this.destory();
+		if(this.checkCollision()) this.destroy();
 	}
 };
 
@@ -34,8 +34,8 @@ Bullet.prototype.checkCollision = function()
 	//resort all fishes by y axis	
 	//fishes.sort(function(a, b){return b.y - a.y;});
 	
-	//check if any fish be hitted
-	var hitted = false;
+	//check if any fish be hit
+	var hit = false;
 	for(var i = 0; i < len; i++)
 	{
 		var fish = fishes[i];
@@ -48,11 +48,11 @@ Bullet.prototype.checkCollision = function()
 		}	
 		if(this.hitTestObject(fish, true))
 		{
-			hitted = true;
+			hit = true;
 			break;
 		}
 	}
-	if(hitted === false) return false;
+	if(hit === false) return false;
 	
 	//release a web
 	var web = new Q.Bitmap(ns.R.webs[this.power - 1]);
@@ -92,7 +92,7 @@ Bullet.prototype.checkCollision = function()
 	return true;
 };
 
-Bullet.prototype.destory = function()
+Bullet.prototype.destroy = function()
 {
 	this.parent.removeChild(this);
 };

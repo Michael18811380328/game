@@ -338,7 +338,7 @@ function listenForInput(game) {
       const UP_ARROW = 38;
       const DOWN_ARROW = 40;
       // 如果点击左右键，并且最近一次操作不是左右操作，那么左转弯
-      // update 使用键盘的 asdw 也可以改变方向（针对于笔记本电脑上下左右不好用的情况，或者让用户自定义操作键）
+      // update 使用键盘的 a s d w 也可以改变方向（针对于笔记本电脑上下左右不好用的情况，或者让用户自定义操作键）
       if (event.keyCode == LEFT_ARROW && movingVertically()) {
         game.addDirection(DIRECTION.LEFT);
       } else if (event.keyCode == RIGHT_ARROW && movingVertically()) {

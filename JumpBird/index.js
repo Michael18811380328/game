@@ -28,7 +28,7 @@ let getTimer = function (duration, thisObj, callback) {
 // 系统对象，统一管理其他对象的开始和结束
 game = {
   paused: true,  // 当前游戏是否暂停
-  isGmaeOver: false, // 当前游戏是否结束
+  isGameOver: false, // 当前游戏是否结束
   dom: document.querySelector('#game'),
   start: function () {
     skyBg.timer.start();
@@ -53,7 +53,7 @@ game = {
     if (bird.top === 462) {
       alert('游戏结束');
 
-      this.isGmaeOver = true;
+      this.isGameOver = true;
       this.stop();
     }
     // 2. 小鸟是否碰撞到柱子（需要检测碰撞）
@@ -70,7 +70,7 @@ game = {
       if (Math.abs(bx - px) < (p.width + bird.width) / 2 &&
         Math.abs(by - py) < (p.height + bird.height) / 2) {
         alter('游戏结束');
-        this.isGmaeOver = true;
+        this.isGameOver = true;
         this.stop();
       }
     }
@@ -241,7 +241,7 @@ document.documentElement.onkeydown = function (e) {
   }
   if (e.key === 'Enter') {
     // 按下回车键后，有三种状态（游戏运行中，游戏暂停中，游戏已结束）
-    if (game.isGmaeOver) {
+    if (game.isGameOver) {
       location.reload();
     }
     if (game.paused) {

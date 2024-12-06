@@ -1,5 +1,4 @@
 # coding: utf-8
-# 加入上面一句才能使用中文注释
 from pyglet.gl import * # OpenGL,GLU接口
 from pyglet.window import key # 键盘常量，事件
 from ctypes import c_float # 导入c类型的float
@@ -94,7 +93,7 @@ class Model(object):
         self.group = TextureGroup('texture.png') # 载入纹理贴图
         self.world = {} # 字典：position:texture的键值对，存在于地图中所有立方体的信息
         self.shown = {} # 字典：position:texture的键值对，显示出来的立方体
-        self._shown = {} # 字典：postion:VertexList键值对，VertexList被批量渲染
+        self._shown = {} # 字典：position:VertexList键值对，VertexList被批量渲染
         self.sectors = {} # 字典：(x,0,z):[position1,position2...]键值对
         self.queue = [] # 用于存储事件的队列
         self.initialize() # 画出游戏地图
@@ -168,7 +167,7 @@ class Model(object):
             self.remove_block(position, sync)
         self.world[position] = texture # 添加相应的位置和纹理
         # 以区域为一组添加立方体的position到字典中，
-        # 16*16*y区域内的立方体都映射到一个键值,这些立方体position以tuble形式存在于一个列表中
+        # 16*16*y区域内的立方体都映射到一个键值,这些立方体position以 tuple 形式存在于一个列表中
         self.sectors.setdefault(sectorize(position), []).append(position)
         if sync: # 初始时该变量为false，不会同步绘制
             if self.exposed(position): # 如果同步绘制，且该位置是显露在外的

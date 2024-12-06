@@ -12,19 +12,19 @@ function Chess() {
       alert('Can not put chess in this place');
     }
 
-    const posi = {
+    const position = {
       row_index,
       col_index,
     };
     const new_positions = positions.slice(0);
 
     if (positions.length % 2 === 1) {
-      posi.isBlack = true;
+      position.isBlack = true;
     } else {
-      posi.isBlack = false;
+      position.isBlack = false;
     }
 
-    new_positions.push(posi);
+    new_positions.push(position);
     setPositions(new_positions);
 
     // first render this step, then check win

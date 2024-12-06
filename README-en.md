@@ -8,7 +8,7 @@ You can star this repository to keep track of the project if it's helpful for yo
 
 # Statement
 
-Most of the game materals(including musics, fonts and images) in this repository are collected from the web, copyright belongs to the original author.
+Most of the game materials(including musics, fonts and images) in this repository are collected from the web, copyright belongs to the original author.
 
 This repository is created just for learning javascript/java/python and so on(Commercial prohibition).
 

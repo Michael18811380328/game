@@ -54,8 +54,8 @@ const checkWin = (positions) => {
     for (let j = 0; j < 9; j++) {
       if (checkRight(i, j, positionMap) || checkBottom(i, j, positionMap) ||
       checkRightTop(i, j, positionMap) || checkRightBottom(i, j, positionMap)) {
-        const lastPosi = positions[positions.length - 1];
-        alert(lastPosi.isBlack ? 'black win' : 'white win');
+        const lastPosition = positions[positions.length - 1];
+        alert(lastPosition.isBlack ? 'black win' : 'white win');
         return true;
       }
     }

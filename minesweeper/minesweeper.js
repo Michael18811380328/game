@@ -287,7 +287,7 @@ var getNumberColor = function (number) {
     color = 'orange';
   }
   return color;
-  // 优化 var colorList = ['balck', 'blue', 'green', 'red', 'orange']; return colorList[number];
+  // 优化 var colorList = ['black', 'blue', 'green', 'red', 'orange']; return colorList[number];
 }
 
 // 获取某个单元格是否是雷（可以优化）
