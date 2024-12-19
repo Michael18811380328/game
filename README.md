@@ -38,6 +38,8 @@
 
 [wuziqi](https://github.com/Michael18811380328/game/tree/master/wuziqi)：五子棋
 
+[pacman](https://github.com/Michael18811380328/game/tree/master/pacman) : 吃豆人
+
 Tower_game：城防游戏
 
 ### Python
