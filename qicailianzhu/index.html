@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>七彩连珠小游戏</title>
+  <style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    canvas {
+        background-color: #333;
+        max-width: 100%;
+    }
+    .tip {
+        width: 1000px;
+        font-size: 14px;
+        line-height: 24px;
+        margin: 0 auto;
+        text-align: left;
+        max-width: 100%;
+    }
+    .more {
+        font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" height="400" width="600"></canvas>
+  <br />
+  <p class="tip">
+      游戏规则：<br>
+      点击彩球移动到期望的位置,每移动一次，画面将随机出现3个新的彩球；当同一颜色的彩球连成5个一行或一列或一斜线时，这5个彩球同时消失，游戏得分10分。当画面上每个方格都被彩球占满时，游戏结束。</p>
+  <br />
+  <a href="index.html" class="more">再玩一次</a>
+  <script>
+    let game = {
+            canvas: document.getElementById("canvas"),
+            ctx: document.getElementById("canvas").getContext("2d"),
+            cellCount: 9,  // 每一行的方格数
+            cellWidth: 30,  // 每一个方格的宽度
+            mode: 7,
+            actions: {},
+            // This function, play, schedules a repeated execution of a given action at a specified interval (defaulting to 50ms).
+            // After each execution, it calls the draw method.
+            // The name parameter is used to store the interval ID, allowing for later cancellation.
+            play: function (name, action, interval) {
+                let that = this;
+                this.actions[name] = setInterval(function () {
+                    action();
+                    that.draw();
+                }, interval || 50);
+            },
+            // This function, stop and cancels a previously scheduled action.
+            stop: function (name) {
+                clearInterval(this.actions[name]);
+                this.draw();
+            },
+            // set bolls color
+            colors: ["red", "#039518", "skyblue", "#ff6a00", "white", "#0096ff", "#d2ce00"],
+            start: function () {
+                this.map.init();
+                this.ready.init();
+                this.draw();
+                this.canvas.onclick = this.onclick;
+            },
+            over: function () {
+                alert("GAME OVER");
+                this.onclick = function () {
+                    return false;
+                };
+                setTimeout(function(){
+                    location.reload();
+                },1000);
+            },
+
+
+            draw: function () {
+                // 清空画布
+                this.ctx.clearRect(0, 0, 400, 600);
+                this.ctx.save();
+                this.map.draw();
+                this.ready.draw();
+                this.score.draw();
+                this.ctx.restore();
+            },
+            clicked: null,
+            isMoving: function () {
+                return this.ready.isMoving || this.map.isMoving;
+            },
+            // event handler for a mouse click on a canvas element.
+            onclick: function (e) {
+                // 1 It first checks if the game is currently moving (i.e., an animation is in progress). If so, it ignores the click.
+                if (game.isMoving()) {
+                    return;
+                }
+                // 2 It calculates the coordinates of the click within the game canvas.
+                let px = (e.offsetX || (e.clientX - game.canvas.offsetLeft)) - game.map.startX;
+                let py = (e.offsetY || (e.clientY - game.canvas.offsetTop)) - game.map.startY;
+                // 3 If the click is outside the game area, it ignores the click.
+                if (px < 0 || py < 0 || px > game.map.width || py > game.map.height) {
+                    return;
+                }
+                let x = parseInt(px / game.cellWidth);
+                let y = parseInt(py / game.cellWidth);
+                let clicked = game.clicked;
+                // 4 It determines which bubble was clicked and checks if it's a colored bubble.
+                let bubble = game.map.getBubble(x, y);
+                // 5 If it's a colored bubble, it checks if another bubble is already selected (i.e., clicked). If so, it stops the animation of the previously selected bubble and selects the newly clicked bubble.
+                if (bubble.color) {
+                    if (clicked) {
+                        // 点击的前后是一个球
+                        if (clicked.x == x && clicked.y == y) {
+                            return;
+                        }
+                        clicked.stop();
+                    }
+                    clicked = game.clicked = bubble;
+                    bubble.play();
+                }
+                // 6 If it's not a colored bubble (i.e., an empty space), it moves the previously selected bubble to the clicked location.
+                else {
+                    if (clicked) {
+                        clicked.stop();
+                        //  move clicked
+                        game.map.move(clicked, bubble);
+                    }
+                }
+            },
+            getRandom: function (max) {
+                return parseInt(Math.random() * 1000000 % (max));
+            },
+        };
+        // 右侧得分榜
+        game.score = {
+            basic: 0,
+            star1: 0,
+            star2: 0,
+            boom: 0,
+            draw: function () {
+                let startX = game.cellWidth * 10 + game.map.startX;
+                let startY = game.map.startY;
+                let ctx = game.ctx;
+                ctx.save();
+                ctx.translate(startX, startY);
+                ctx.clearRect(0, 0, 150, 400);
+                ctx.strokeStyle = "#456";
+                ctx.font = "24px 微软雅黑";
+                ctx.fillStyle = "#fefefe";
+                ctx.fillText("得分:" + (this.basic * 5 + this.star1 * 8 + this.star2 * 10 + this.boom * 20), 0, 30);
+                ctx.stroke();
+                ctx.restore();
+            },
+            addScore: function (length) {
+                switch (length) {
+                    case 5:
+                        this.basic++;
+                        break;
+                    case 6:
+                        this.star1++;
+                        break;
+                    case 7:
+                        this.star2++;
+                        break;
+                    default:
+                        this.boom++;
+                        break;
+                }
+                this.draw();
+            },
+        };
+        game.ready = {
+            startX: 41.5,
+            startY: 21.5,
+            width: game.cellWidth * 3,
+            height: game.cellWidth,
+            bubbles: [],
+            init: function () {
+                this.generate();
+                let that = this;
+                that.flyin();
+            },
+            generate: function () {
+                // 随机生成3个球，作为下一轮进入的球
+                for (let i = 0; i < 3; i++) {
+                    let color = game.colors[game.getRandom(game.mode)];
+                    this.bubbles.push(new Bubble(i, 0, color));
+                }
+            },
+            draw: function () {
+                let ctx = game.ctx;
+                ctx.save();
+                ctx.translate(this.startX, this.startY);
+                ctx.beginPath();
+                ctx.strokeStyle = "#555";
+                ctx.strokeRect(0, 0, this.width, this.height);
+                ctx.stroke();
+                // 产品需求，不要在这里绘制准备显示的泡泡
+                // this.bubbles.forEach(function (bubble) {
+                //     bubble.draw();
+                // });
+                ctx.restore();
+            },
+            isMoving: false,
+            // 准备好的球飞去到棋盘中
+            flyin: function () {
+                // 先检测空余的位置
+                let emptys = game.map.getEmptyBubbles();
+                if (emptys.length < 3) {
+                    //GAME OVER
+                    game.over();
+                    return;
+                }
+                let me = this;
+                let status = [0, 0, 0];
+                let times = 1;
+                game.play("flyin", function () {
+                    if (status[0] && status[1] && status[2]) {
+                        game.stop("flyin");
+                        me.isMoving = false;
+                        status = [0, 0, 0];
+                        me.bubbles = [];
+                        me.generate();
+                        return;
+                    }
+                    me.isMoving = true;
+                    for (let i = 0; i < me.bubbles.length; i++) {
+                        if (status[i]) {
+                            continue;
+                        }
+                        let target = emptys[i];
+                        let x2 = target.px + game.map.startX - me.startX;
+                        let y2 = target.py + game.map.startY - me.startY;
+                        let current = me.bubbles[i];
+                        let step = Math.abs(x2 - current.px)/10 || Math.abs(y2 - current.y)/10;
+                        if (current.px < x2) {
+                            current.py = ((y2 - current.py) / (x2 - current.px)) * step + current.py;
+                            current.px += step;
+                            if (current.px > x2) {
+                                current.px = x2;
+                            }
+                        }
+                        else if (current.px > x2) {
+                            current.py = ((y2 - current.py) / (current.px - x2)) * step + current.py;
+                            current.px -= step;
+                            if (current.px < x2) {
+                                current.px = x2;
+                            }
+                        }
+                        else {
+                            current.py += step;
+                        }
+                        if (current.py > y2) {
+                            current.py = y2;
+                        }
+                        if (parseInt(current.px+0.1) == x2 && parseInt(current.py+0.1) == y2) {
+                            status[i] = 1;
+                            current.x = target.x;
+                            current.y = target.y;
+                            game.map.addBubble(current);
+                            game.map.clearLine(current.x, current.y, current.color, false);
+                        }
+                    }
+                }, 10);
+
+            }
+        };
+        game.map = {
+            startX: 40.5,  //棋盘X坐标
+            startY: 60.5,  //棋盘Y坐标
+            width: game.cellCount * game.cellWidth,
+            height: game.cellCount * game.cellWidth,
+            bubbles: [],
+
+            init: function () {
+                for (let i = 0; i < game.cellCount; i++) {
+                    let row = [];
+                    for (let j = 0; j < game.cellCount; j++) {
+                        row.push(new Bubble(j, i, null));
+                    }
+                    this.bubbles.push(row);
+                }
+            },
+            clearLine: function (x1, y1, color, isClick) {
+                if (this.isEmpty(x1, y1)) {
+                    if (isClick) game.ready.flyin();
+                    return;
+                };
+                // 给定一个坐标，看是否有满足的line可以被消除
+                // 4种情况消除：一  | / \
+                // 横线
+                let current = this.getBubble(x1, y1);
+                if (!current.color) {
+                    console.log(current);
+                }
+                let arr1, arr2, arr3, arr4;
+                arr1 = this.bubbles[y1];
+                arr2 = [];
+                for (let y = 0; y < game.cellCount; y++) {
+                    arr2.push(this.getBubble(x1, y));
+                }
+                arr3 = [current];
+                arr4 = [current];
+                for (let i = 1; i < game.cellCount ; i++) {
+                    if (x1 - i >= 0 && y1 - i >= 0) {
+                        arr3.unshift(this.getBubble(x1 - i, y1 - i));
+                    }
+                    if (x1 + i < game.cellCount && y1 + i < game.cellCount) {
+                        arr3.push(this.getBubble(x1 + i, y1 + i));
+                    }
+                    if (x1 - i >= 0 && y1 + i < game.cellCount) {
+                        arr4.push(this.getBubble(x1 - i, y1 + i));
+                    }
+                    if (x1 + i < game.cellCount && y1 - i >= 0) {
+                        arr4.unshift(this.getBubble(x1 + i, y1 - i));
+                    }
+                }
+                let line1 = getLine(arr1);
+                let line2 = getLine(arr2);
+                let line3 = getLine(arr3);
+                let line4 = getLine(arr4);
+                let line = line1.concat(line2).concat(line3).concat(line4);
+                // 如果小于5个，继续飞入；如果大于5个，那么开始消除，计算分数；这个可以设置动态数字
+                if (line.length < 5) {
+                    if (isClick) game.ready.flyin();
+                    return;
+                }
+                else {
+                    let me = this;
+                    let i = 0;
+                    game.play("clearline", function () {
+                        if (i == line.length) {
+                            game.score.addScore(line.length);
+                            game.stop("clearline");
+                            me.isMoving = false;
+                            //game.ready.flyin();
+                            return;
+                        }
+                        me.isMoving = true;
+                        let p = line[i];
+                        me.setBubble(p.x, p.y, null);
+                        i++;
+                    }, 100);
+                }
+                function getLine(bubbles) {
+                    let line = [];
+                    for (let i = 0; i < bubbles.length; i++) {
+                        let b = bubbles[i];
+                        if (b.color == color) {
+                            line.push({ "x": b.x, "y": b.y });
+                        }
+                        else {
+                            if (line.length < 5)
+                                line = [];
+                            else
+                                return line;
+                        }
+                    }
+                    if (line.length < 5)
+                        return [];
+                    return line;
+                }
+            },
+            draw: function () {
+                let ctx = game.ctx;
+                ctx.save();
+                ctx.translate(this.startX, this.startY);
+                ctx.beginPath();
+                for (let i = 0; i <= game.cellCount; i++) {
+                    let p1 = i * game.cellWidth;;
+                    ctx.moveTo(p1, 0);
+                    ctx.lineTo(p1, this.height);
+
+                    let p2 = i * game.cellWidth;
+                    ctx.moveTo(0, p2);
+                    ctx.lineTo(this.width, p2);
+                }
+                ctx.strokeStyle = "#555";
+                ctx.stroke();
+                // 绘制子元素（所有在棋盘上的球）
+                this.bubbles.forEach(function (row) {
+                    row.forEach(function (bubble) {
+                        bubble.draw();
+                    });
+                });
+                ctx.restore();
+            },
+            isMoving: false,
+            move: function (bubble, target) {
+                let path = this.search(bubble.x, bubble.y, target.x, target.y);
+                if (!path) {
+                    return;
+                }
+                // map开始显示当前泡的移动效果
+                // 两种实现方式
+                // 1、map按路径染色，最后达到目的地
+                // 2、map生成一个临时的bubble负责展示，到目的地后移除
+                let me = this;
+                let name = "move_" + bubble.x + "_" + bubble.y;
+                let i = path.length - 1;
+                let color = bubble.color;
+                game.play(name, function () {
+                    if (i < 0) {
+                        game.stop(name);
+                        game.clicked = null;
+                        me.isMoving = false;
+                        me.clearLine(target.x, target.y, color, true);
+                        return;
+                    }
+                    me.isMoving = true;
+                    path.forEach(function (cell) {
+                        me.setBubble(cell.x, cell.y, null);
+                    });
+                    let currentCell = path[i];
+                    me.setBubble(currentCell.x, currentCell.y, color);
+                    i--;
+                }, 50);
+            },
+            search: function (x1, y1, x2, y2) {
+                let history = [];
+                let goalCell = null;
+                let me = this;
+                getCell(x1, y1, null);
+                if (goalCell) {
+                    let path = [];
+
+                    let cell = goalCell;
+                    while (cell) {
+                        path.push({ "x": cell.x, "y": cell.y });
+                        cell = cell.parent;
+                    }
+                    return path;
+                }
+                return null;
+                function getCell(x, y, parent) {
+                    if (x >= me.bubbles.length || y >= me.bubbles.length)
+                        return;
+                    if (x != x1 && y != y2 && !me.isEmpty(x, y))
+                        return;
+
+                    for (let i = 0; i < history.length; i++) {
+                        if (history[i].x == x && history[i].y == y)
+                            return;
+                    }
+                    let cell = { "x": x, "y": y, child: [], "parent": parent };
+                    history.push(cell);
+
+                    if (cell.x == x2 && cell.y == y2) {
+                        goalCell = cell;
+                        return cell;
+                    }
+                    let child = [];
+                    let left, top, right, buttom;
+                    // 最短路径的粗略判断，就是首选目标位置的大致方向
+                    if (x - 1 >= 0 && me.isEmpty(x - 1, y))
+                        child.push({ "x": x - 1, "y": y });
+                    if (x + 1 < me.bubbles.length && me.isEmpty(x + 1, y))
+                        child.push({ "x": x + 1, "y": y });
+                    if (y + 1 < me.bubbles.length && me.isEmpty(x, y + 1))
+                        child.push({ "x": x, "y": y + 1 });
+                    if (y - 1 >= 0 && me.isEmpty(x, y - 1))
+                        child.push({ "x": x, "y": y - 1 });
+                    let distance = [];
+                    for (let i = 0; i < child.length; i++) {
+                        let c = child[i];
+                        if (c) {
+                            distance.push({"i":i,"d":Math.abs(x2 - c.x) + Math.abs(y2 - c.y)});
+                        } else {
+                            distance.push({"i":i,"d":-1});
+                        }
+                    };
+                    distance.sort(function (a, b) { return a.d - b.d });
+                    for (let i = 0; i < child.length; i++) {
+                        let d = distance[i];
+                        let c = child[d.i];
+                        if (c) cell.child.push(getCell(c.x, c.y, cell));
+                    }
+                    return cell;
+                }
+            },
+            getEmptyBubbles: function () {
+                let empties = [];
+                this.bubbles.forEach(function (row) {
+                    row.forEach(function (bubble) {
+                        if (!bubble.color) {
+                            empties.push(new Bubble(bubble.x, bubble.y));
+                        }
+                    });
+                });
+                if (empties.length <= 3) {
+                    return [];
+                }
+                let result = [];
+                let useds = [];
+                for (let i = 0; i < empties.length; i++) {
+                    if (result.length == 3) {
+                        break;
+                    }
+                    let isUsed = false;
+                    let ra = game.getRandom(empties.length);
+                    for (let m = 0; m < useds.length; m++) {
+                        isUsed = ra === useds[m];
+                        if (isUsed) break;
+                    }
+                    if (!isUsed) {
+                        result.push(empties[ra]);
+                        useds.push(ra);
+                    }
+                }
+                return result;
+            },
+            addBubble: function (bubble) {
+                let thisBubble = this.getBubble(bubble.x, bubble.y);
+                thisBubble.color = bubble.color;
+            },
+            setBubble: function (x, y, color) {
+                this.getBubble(x, y).color = color;
+            },
+            getBubble: function (x, y) {
+                if (x < 0 || y < 0 || x > game.cellCount || y > game.cellCount) return null;
+                return this.bubbles[y][x];
+            },
+            isEmpty: function (x, y) {
+                let bubble = this.getBubble(x, y);
+                return !bubble.color;
+            },
+        };
+        let Cell = function (x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        let Bubble = function (x, y, color) {
+            this.x = x;
+            this.y = y;
+            this.px = game.cellWidth * (this.x + 1) - game.cellWidth / 2;
+            this.py = game.cellWidth * (this.y + 1) - game.cellWidth / 2;
+            this.color = color;
+            this.light = 10;
+        };
+        Bubble.prototype.draw = function () {
+            if (!this.color) {
+                return;
+            }
+            let ctx = game.ctx;
+            ctx.beginPath();
+            // 默认球是渐变颜色，产品需求改成纯色
+            // let gradient = ctx.createRadialGradient(this.px - 5, this.py - 5, 0, this.px, this.py, this.light);
+            // gradient.addColorStop(0, "white");
+            // gradient.addColorStop(1, this.color);
+            ctx.arc(this.px, this.py, 11, 0, Math.PI * 2);
+            ctx.strokeStyle = this.color;
+            ctx.fillStyle = this.color;
+            // ctx.fillStyle = gradient;
+            ctx.fill();
+            ctx.stroke();
+        };
+        Bubble.prototype.play = function () {
+            let me = this;
+            let isUp = true;
+            game.play("light_" + this.x + "_" + this.y, function () {
+                if (isUp) {
+                    me.light += 3;
+                }
+                if (!isUp) {
+                    me.light -= 3;
+                }
+                if (me.light >= 30) {
+                    isUp = false;
+                }
+                if (me.light <= 10) {
+                    isUp = true;
+                }
+            }, 50);
+        };
+        Bubble.prototype.stop = function () {
+            let me = this;
+            game.stop("light_" + this.x + "_" + this.y);
+            game.play("restore_" + this.x + "_" + this.y, function () {
+                if (me.light > 10) {
+                    me.light--;
+                }
+                else {
+                    me.light = 10;
+                    game.stop("restore_" + me.x + "_" + me.y);
+                }
+            }, 50);
+        };
+        game.start();
+  </script>
+</body>
+</html>

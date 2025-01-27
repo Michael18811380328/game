@@ -40,6 +40,8 @@
 
 [pacman](https://github.com/Michael18811380328/game/tree/master/pacman) : 吃豆人
 
+[七彩连珠](https://github.com/Michael18811380328/game/tree/master/qicialianzhu) 
+
 Tower_game：城防游戏
 
 ### Python
