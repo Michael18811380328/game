@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html style="width:100%;height:100%;background-color:black;" lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+		<meta name="description" content="在浏览器里玩MC" />
+		<meta name="keywords" content="mc.js, mc.js.cool, MCJS, eaglercraft, eaglercraftx, minecraft, 1.8, 1.8.8" />
+		<title>MC.JS WebMC1.8</title>
+		<meta property="og:locale" content="zh-CN" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="MC.JS EaglercraftX 1.8" />
+		<meta property="og:description" content="在浏览器里玩MC" />
+		<meta property="og:image" content="favicon.ico" />
+		<link type="image/png" rel="shortcut icon" href="favicon.ico" />
+		<script type="text/javascript" src="classes.js"></script>
+		<script type="text/javascript">
+			"use strict";
+			window.addEventListener("load", function() {
+				if(window.location.href.indexOf("file:") === 0) {
+					alert("HTTP please, do not open this file locally, run a local HTTP server and load it via HTTP");
+				}else {
+					var relayId = Math.floor(Math.random() * 3);
+					window.eaglercraftXOpts = {
+						demoMode: false,
+						container: "game_frame",
+						assetsURI: "assets.epk",
+						localesURI: "lang/",
+						lang: "zh_CN",
+						worldsDB: "worlds",
+						logInvalidCerts: true,
+						crashOnUncaughtExceptions: true,
+						servers: [
+						],
+						relays: [
+							{ addr: "wss://relay.deev.is/", comment: "lax1dude relay #1", primary: relayId === 0 },
+							{ addr: "wss://relay.lax1dude.net/", comment: "lax1dude relay #2", primary: relayId === 1 },
+							{ addr: "wss://relay.shhnowisnottheti.me/", comment: "ayunami relay #1", primary: relayId === 2 }
+						]
+					};
+
+					var q = window.location.search;
+					if((typeof q === "string") && q[0] === "?" && (typeof window.URLSearchParams !== "undefined")) {
+						q = new window.URLSearchParams(q);
+						var s = q.get("server");
+						if(s) window.eaglercraftXOpts.joinServer = s;
+					}
+
+					main();
+				}
+			});
+		</script>
+	</head>
+	<body style="margin:0px;width:100%;height:100%;overflow:hidden;background-color:black;" id="game_frame">
+	<!-- Cloudflare Pages Analytics -->
+	<!-- <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cae2a0225cd44bd596eb0b1d6106e485"}'></script> -->
+	<!-- Cloudflare Pages Analytics -->
+	</body>
+</html>
