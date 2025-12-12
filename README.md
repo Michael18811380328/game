@@ -1,4 +1,4 @@
-# 小游戏使用说明
+# 小游戏
 
 下面是自己收藏或者改进的小游戏。
 
@@ -40,7 +40,7 @@
 
 [pacman](https://github.com/Michael18811380328/game/tree/master/pacman) : 吃豆人
 
-[七彩连珠](https://github.com/Michael18811380328/game/tree/master/qicialianzhu) 
+[七彩连珠](https://github.com/Michael18811380328/game/tree/master/qicialianzhu)
 
 Tower_game：城防游戏
 

@@ -6,14 +6,13 @@ You can star this repository to keep track of the project if it's helpful for yo
 
 :hand:Thank you for your support.
 
-# Statement
+## Statement
 
 Most of the game materials(including musics, fonts and images) in this repository are collected from the web, copyright belongs to the original author.
 
 This repository is created just for learning javascript/java/python and so on(Commercial prohibition).
 
-
-# Contents
+## Contents
 
 [Fishing-Joy](https://github.com/Michael18811380328/game/tree/master/Fishing-Joy)
 
