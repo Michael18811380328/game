@@ -1,9 +1,13 @@
 const express = require('express')
 const path = require('path')
 const opn = require('opn')
+const cookieParser = require('cookie-parser')
+const csrf = require('csurf')
 
 const server = express()
 const host = 'http://localhost:8082'
+server.use(cookieParser())
+server.use(csrf({ cookie: true }))
 server.use('/assets', express.static(path.resolve(__dirname, './assets')))
 server.use('/dist', express.static(path.resolve(__dirname, './dist')))
 
